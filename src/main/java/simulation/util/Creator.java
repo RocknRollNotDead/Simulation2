@@ -27,17 +27,15 @@ public class Creator {
         int y;
 
         do{
-
-//            x = random.getX();
-//            y = random.getY();
             x = random.get(width);
             y = random.get(heigh);
 
-
-            if(counter.getCount(clazz)<counter.getMaxCount(clazz) & (objects.get(new Position(x, y)) == null)){
+            if(counter.getCount(clazz) < counter.getMaxCount(clazz) & (objects.get(new Position(x, y)) == null)){
                 try {
                     entity = clazz.getDeclaredConstructor(int.class, int.class).newInstance(x, y);
-                    System.out.println("object was created: " /*+ clazz.getSimpleName()*/ + entity.getSymbol() + " " +  entity.getPosition().getX() + " " + entity.getPosition().getY());
+                    System.out.println("object was created: " + clazz.getSimpleName()/* + entity.getSymbol()*/ + " " +
+                            entity.getPosition().getX() + " " + entity.getPosition().getY() + " count "
+                            + counter.getCount(clazz) + "  maxCount " + counter.getMaxCount(clazz));
                 } catch (Exception e){
                     System.out.println("object not was created: " + clazz.getSimpleName());
                 }

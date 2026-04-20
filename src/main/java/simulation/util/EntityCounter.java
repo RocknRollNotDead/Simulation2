@@ -55,7 +55,9 @@ public class EntityCounter {
         levelsOutMap.put(clazz, 0);
     }
     public void decrementCount(Class<?> clazz) {
-        countMap.put(clazz, getCount(clazz) - 1);
+        if(getCount(clazz) > 0){
+            countMap.put(clazz, getCount(clazz) - 1);
+        }
     }
 
     public void addClass(Class<?> clazz){

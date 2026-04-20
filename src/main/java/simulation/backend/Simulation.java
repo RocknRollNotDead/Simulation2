@@ -17,7 +17,7 @@ public class Simulation {
     private final List<Entity> eatingList = new ArrayList<>();
     private final Map<Position, Entity> newObjsMap = new HashMap<>();
     private final Set<Entity> objsSet = new HashSet<>();
-    private boolean colliseum = false;
+//    private boolean colliseum = false;
 
 
     private final int width, heigh;
@@ -76,9 +76,7 @@ public class Simulation {
                 }else{
 
                     boolean resRemove = newObjsMap.remove(entity.getPosition(), entity);
-                    System.out.println("res " + resRemove + entity);
                     objsSet.remove(entity);
-//                    System.out.println("remove " + entity);
 
                     counter.decrementCount(entity.getClass());
                     eatingList.remove(entity);
@@ -93,16 +91,8 @@ public class Simulation {
                     counter.decrementCount(entity.getClass());
                 }
             }
-
-//            System.out.println("map " + objsMap.values());
-//            System.out.println("list " + objsSet);
-            if (!newObjsMap.values().containsAll(objsSet)){
-                colliseum = true;
-            }else{
-                colliseum = false;
-            }
         }
-        while (!newObjsMap.values().containsAll(objsSet)/* || objsMap.isEmpty() && objsSet.isEmpty()*/);
+        while (!newObjsMap.values().containsAll(objsSet));
 
 
         objsMap = new HashMap<>(newObjsMap);
@@ -127,11 +117,19 @@ public class Simulation {
                 Entity entity = creator.execute(clazz);
                 objsMap.put(entity.getPosition(), entity);
 
+                // пофиксить что после создания третьего обьекта не идет ожидание перед четвертым
                 counter.incCount(clazz);
+
                 counter.incLevelsOut(clazz);
             } else{
                 counter.incLevelsOut(clazz);
             }
+
+
+            if(EntityCompare.isCountLess(clazz, counter)){
+                counter.clearLevels(clazz);
+            }
+
 //            System.out.println(EntityCounter.getCount(clazz));
         }
 
@@ -161,9 +159,6 @@ public class Simulation {
         return newObjsMap;
     }
 
-    public boolean wasColliseum() {
-        return colliseum;
-    }
 
     public int getWidth() {
         return width;
