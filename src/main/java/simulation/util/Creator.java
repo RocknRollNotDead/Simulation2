@@ -1,25 +1,28 @@
 package simulation.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import simulation.Entity.Entity;
 import simulation.backend.Position;
 
 import java.util.Map;
 
 public class Creator {
-    private final Map<Position, Entity> objects;
-    EntityCounter counter;
-    private int width;
-    private int heigh;
+    private static final Logger log = LoggerFactory.getLogger(Creator.class);
+    private final EntityCounter counter;
+    private final int width;
+    private final int heigh;
 
 
-    public Creator(Map<Position, Entity> objects, EntityCounter counter, int width, int heigh){
-        this.objects = objects;
+    public Creator(EntityCounter counter, int width, int heigh){
+//        this.objects = objects;
         this.counter = counter;
         this.width = width;
         this.heigh = heigh;
     }
 
-    public Entity execute(Class<? extends Entity> clazz){
+    public Entity execute(Class<? extends Entity> clazz, Map<Position, Entity> objects){
+
 
         Entity entity = null;
         Randomizer random = new Randomizer();
@@ -33,11 +36,11 @@ public class Creator {
             if(counter.getCount(clazz) < counter.getMaxCount(clazz) & (objects.get(new Position(x, y)) == null)){
                 try {
                     entity = clazz.getDeclaredConstructor(int.class, int.class).newInstance(x, y);
-                    System.out.println("object was created: " + clazz.getSimpleName()/* + entity.getSymbol()*/ + " " +
+                    log.info("object was created: " + clazz.getSimpleName()/* + entity.getSymbol()*/ + " " +
                             entity.getPosition().getX() + " " + entity.getPosition().getY() + " count "
                             + counter.getCount(clazz) + "  maxCount " + counter.getMaxCount(clazz));
                 } catch (Exception e){
-                    System.out.println("object not was created: " + clazz.getSimpleName());
+                    log.debug("object not was created: " + clazz.getSimpleName());
                 }
 
             }

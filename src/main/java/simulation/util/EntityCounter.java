@@ -10,15 +10,6 @@ public class EntityCounter {
     private final Map<Class<?>, Integer> maxCountMap = new HashMap<>();
     private final Map<Class<?>, Integer> maxLevelsOut = new HashMap<>();
 
-    /*{
-        for (int i = 0; i < 4; i++) {
-            incLevelsOut(Iwe.class);
-        }
-        for (int i = 0; i < 5; i++) {
-            incLevelsOut(Tree.class);
-        }
-    }*/
-
     public int getCount(Class<?> clazz) {
         return countMap.getOrDefault(clazz, 0);
     }

@@ -1,17 +1,21 @@
 package simulation.Entity;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import simulation.backend.Position;
 import simulation.backend.Simulation;
-import simulation.util.Config;
 
 import java.util.*;
 
 public class Hare extends Animals{
 
     private static final String SYMBOL = "\uD83D\uDC30"; // 🐰
-    private int lifes = 30;
+    private static final Logger log = LoggerFactory.getLogger(Hare.class);
     private static int count;
+
     private final int id;
+    private int lifes = 30;
+    private boolean isDead;
 
     public Hare(int x, int y) {
         super(x, y);
@@ -19,17 +23,26 @@ public class Hare extends Animals{
         id = count;
     }
 
+
+
     @Override
     public Position doMove(Simulation simulation) {
 
         Position newPosition = searchMove(simulation);
 
+        if(checkEating(simulation, newPosition)){
+            Entity entity = simulation.getObjsMap().get(newPosition);
+            eating(simulation, entity);
+        }
+
         lifes--;
 
         if (lifes <= 0){
-            simulation.addInQueue(this);
+            simulation.addInQueueDel(this);
+            isDead = true;
+            log.info(" Hare" + id + " DEAD!X!X! ");
         }
-        System.out.println(" Hare " + id + " " + newPosition + "  lifes: " + lifes);
+        log.trace(" Hare" + id + " " + newPosition + "  lifes: " + lifes);
 
         return newPosition;
     }
@@ -38,36 +51,31 @@ public class Hare extends Animals{
     protected Position searchMove(Simulation simulation) {
         int x;
         int y;
-        int a = 0;
-        Map<Position, Entity> objsMap = simulation.getObjsMap();
-
+//        Map<Position, Entity> objsMap = simulation.getObjsMap();
+        int aDeb = 0;
         Position position = getPosition();
-        int posAroundX;
-        int posAroundY;
 
-        int moveX = 0;
-        int moveY = 0;
+        int moveX;
+        int moveY;
 
-        int bDebug = 0;
         do{
             Position berPos = searchEat(getPosition(), simulation.getObjsMap());
-            Position newPos = berPos;
-            int raznicaX = 0;
-            int raznicaY = 0;
+            int differenceInX;
+            int differenceInY;
             if (berPos != null){
-                raznicaX = berPos.getX() - getPosition().getX();
-                raznicaY = berPos.getY() - getPosition().getY();
-                moveX = Integer.compare(raznicaX, 0);
-                moveY = Integer.compare(raznicaY, 0);
+                differenceInX = berPos.getX() - getPosition().getX();
+                differenceInY = berPos.getY() - getPosition().getY();
+                moveX = Integer.compare(differenceInX, 0);
+                moveY = Integer.compare(differenceInY, 0);
             }else{
-                moveX = random.getMove()[0];
-                moveY = random.getMove()[1];
+                int[] move = random.getMove();
+                moveX = move[0];
+                moveY = move[1];
             }
 
             x = position.getX() + moveX;
             y = position.getY() + moveY;
 
-            int aDebug=0;
             while
             ((simulation.getNewObjsMap().containsKey(new Position(x, y)) &&
                     simulation.getNewObjsMap().get(
@@ -80,44 +88,19 @@ public class Hare extends Animals{
             {
                 moveX = random.getMove()[0];
                 moveY = random.getMove()[1];
-                System.out.println("new moves  " + moveX + " " + moveY);
-                if (aDebug>5){
-                    System.out.println("Cycles in search");
-
-                }
-                aDebug++;
 
                 x = position.getX() + moveX;
                 y = position.getY() + moveY;
+                log.debug("cycles in in while id {}", id);
 //                System.out.println("collisea! " + position);
-//                System.out.println((position.getX() + moveX) + " " + (position.getY() + moveY));
             }
-
-
-
-//            x = position.getX() + moveX;
-//            y = position.getY() + moveY;
-
-            if (bDebug>5){
-                System.out.println("Cycles in confirm move");
-                if (simulation.getNewObjsMap().containsKey(new Position(x, y))){
-                    System.out.println("class " + simulation.getNewObjsMap().get(new Position(x, y)).getClass().getSimpleName());
-                    System.out.println("x and y " + x + " " + y);
-                }
+            aDeb++;
+            if (aDeb>5 && aDeb<8){
+                log.debug("cycles in 1 while id: {}", id);
             }
-
-            bDebug++;
-        } while(//(simulation.getObjsMap().containsKey(new Position(x, y)) && objsMap.get(new Position(x, y)).getClass() != Berries.class) &&
-                //(simulation.getNewObjsMap().containsKey(new Position(x, y)) && simulation.getObjsMap().get(new Position(x, y)).getClass() != Berries.class)
-                (simulation.getNewObjsMap().containsKey(new Position(x, y)) && simulation.getNewObjsMap().get(new Position(x, y)).getClass() != Berries.class)
+        } while(simulation.getNewObjsMap().containsKey(new Position(x, y)) &&
+                simulation.getNewObjsMap().get(new Position(x, y)).getClass() != Berries.class
                 || x >= simulation.getWidth() || y >= simulation.getHeigh() || x < 0 || y < 0);
-
-        Entity entity = objsMap.get(new Position(x, y));
-
-        if (entity != null && entity.getClass() == Berries.class){
-            eating(simulation, entity);
-            System.out.println("eating  " + entity.getPosition().getX() + " " + entity.getPosition().getY());
-        }
 
         return new Position(x, y);
     }
@@ -125,7 +108,7 @@ public class Hare extends Animals{
 
     private Position searchEat(Position animPos, Map<Position, Entity> objsMap){
 
-        //berPos = в objsMap ищется ближайшая ягода к animPos
+        //pos = в objsMap ищется ближайшая ягода к animPos
 
         Position pos = objsMap.entrySet().stream()
                 .filter(e -> e.getValue().getClass() == Berries.class)
@@ -140,17 +123,23 @@ public class Hare extends Animals{
         return pos;
     }
 
+    private void eating(Simulation simulation, Entity entity){
+        simulation.addInSetForEating(entity);
+        log.trace("eating  " + entity.getPosition().getX() + " " + entity.getPosition().getY());
+        if (lifes < 50){
+            lifes = lifes + 5;
+        }
 
-
-
-    public void eating(Simulation simulation, Entity entity){
-        simulation.addInMapQue(entity);
-        lifes = lifes + 5;
     }
 
+    private boolean checkEating(Simulation simulation, Position newPosition){
+        Entity entity = simulation.getObjsMap().get(newPosition);
+        return (entity != null && entity.getClass() == Berries.class);
+
+    }
     @Override
     protected boolean isDead() {
-        return false;
+        return isDead;
     }
 
     @Override

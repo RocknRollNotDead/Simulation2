@@ -1,0 +1,42 @@
+<configuration>
+
+    <!-- Аппендер для записи в файл -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <!-- имя файла -->
+        <file>logs/app.log</file>
+
+        <!-- ротация логов -->
+        <!--rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/app.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <- ВОТ ЭТО
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>-->
+
+
+
+        <!-- ВОТ ЭТО ВАЖНО -->
+        <append>false</append>
+
+        <!-- формат -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+
+    </appender>
+
+    <!-- корневой логгер -->
+    <root level="trace">
+        <appender-ref ref="FILE"/>
+    </root>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+        <fileNamePattern>logs/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+        <maxFileSize>10MB</maxFileSize>
+        <maxHistory>7</maxHistory>
+        <totalSizeCap>1GB</totalSizeCap>
+    </rollingPolicy>
+
+
+</configuration>

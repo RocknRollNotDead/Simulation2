@@ -1,6 +1,8 @@
 package simulation.backend;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import simulation.Entity.*;
 import simulation.util.Config;
 import simulation.util.Creator;
@@ -10,19 +12,31 @@ import simulation.util.EntityCounter;
 import java.util.*;
 
 public class Simulation {
+    private static final Logger log = LoggerFactory.getLogger(Simulation.class);
+
     private final Queue<Entity> forDelete = new LinkedList<>();
     private final EntityCounter counter = new EntityCounter();
-    List<Class<? extends Entity>> types = new ArrayList<>();
-    private Map<Position, Entity> objsMap = new HashMap<>();
-    private final List<Entity> eatingList = new ArrayList<>();
-    private final Map<Position, Entity> newObjsMap = new HashMap<>();
+    private final List<Class<? extends Entity>> types = new ArrayList<>(); // тут был arrayList
+    private final Set<Entity> eatingList = new HashSet<>();
     private final Set<Entity> objsSet = new HashSet<>();
-//    private boolean colliseum = false;
+    private final Map<Position, Entity> newObjsMap = new HashMap<>();
+    private Map<Position, Entity> objsMap = new HashMap<>();
+    /**
+     * forDelete - туда попадают сущности, которые надо удалить, чтобы удалять их не сразу, а один ход = одно удаление
+     * у каждого класса
+     * Счётчик следит за тем, сколько сущностей конкретного класса
+     * eatingList - лист тех, кого сьедают. Управляется из классов <? наслед Animals>
+     * objSet - список всех объектов карты
+     * objsMap хранит основную полноценную карту обьектов.
+     * *
+     * По objsMap мы иттерируемся, но записываем все объекты в newObsMap, и после итерации тупо записываем
+     * newObjsMap в objsMap.    (как раз из-за objsMap = newObjsMap, objsMap не final)
+     * */
 
 
     private final int width, heigh;
     private long cycle;
-    private Creator creator;
+    private final Creator creator;
 
     {
         types.add(Iwe.class);
@@ -40,19 +54,19 @@ public class Simulation {
 
 
     public Simulation() {
-        this.width = Config.getWidth();
-        this.heigh = Config.getHeigh();
-
+        this(Config.getWidth(), Config.getHeigh());
     }
 
     public Simulation(int width, int heigh){
 
         this.width = width;
         this.heigh = heigh;
+        this.creator = new Creator(counter, width, heigh);
     }
 
     public void doMove(){
 
+        int aDebug = 0;
         do{
             newObjsMap.clear();
             Iterator<Map.Entry<Position, Entity>> it = objsMap.entrySet().iterator();
@@ -84,81 +98,72 @@ public class Simulation {
 
 
                 if (!forDelete.isEmpty() && entity.equals(forDelete.element())) {
-    //                it.remove(); // безопасное удаление
+                    it.remove(); // безопасное удаление
                     newObjsMap.remove(position);
                     forDelete.remove();
                     objsSet.remove(entity);
                     counter.decrementCount(entity.getClass());
                 }
             }
+            aDebug++;
+            if(!newObjsMap.values().containsAll(objsSet)){
+                log.error("{}    {}", newObjsMap.values(), objsSet);
+            }
         }
-        while (!newObjsMap.values().containsAll(objsSet));
-
+        while (!newObjsMap.values().containsAll(objsSet) && aDebug < 20);
 
         objsMap = new HashMap<>(newObjsMap);
 
+
         this.cycle++;
-
         createEnts();
-
-
+        log.info("cycle {}", cycle);
     }
 
     private void createEnts(){
 
-        this.creator = new Creator(objsMap, counter, width, heigh);
 
-        for (int i = 0; i < types.size(); i++) {
-            Class<? extends Entity> clazz = types.get(i);
+        for (Class<? extends Entity> clazz : types) {
 
-            if(EntityCompare.isCountLess(clazz, counter)){
+            if (EntityCompare.isCountFill(clazz, counter)) {
                 counter.clearLevels(clazz);
-            } else if(!EntityCompare.isLevelsOutLess(clazz, counter)){
-                Entity entity = creator.execute(clazz);
+            } else if (EntityCompare.isNeedToBeCreated(clazz, counter)) {
+                Entity entity = creator.execute(clazz, objsMap);
                 objsMap.put(entity.getPosition(), entity);
 
                 // пофиксить что после создания третьего обьекта не идет ожидание перед четвертым
                 counter.incCount(clazz);
 
                 counter.incLevelsOut(clazz);
-            } else{
+            } else {
                 counter.incLevelsOut(clazz);
             }
 
-
-            if(EntityCompare.isCountLess(clazz, counter)){
+            if (EntityCompare.isCountFill(clazz, counter)) {
                 counter.clearLevels(clazz);
             }
-
-//            System.out.println(EntityCounter.getCount(clazz));
         }
 
     }
 
-    public void addInMapQue(Entity entity){
+    public void addInSetForEating(Entity entity){
         this.eatingList.add(entity);
     }
-
-    public List<Entity> getEatingList() {
-        return eatingList;
+    public void addInQueueDel(Entity entity){
+        this.forDelete.add(entity);
     }
 
     public long getCycle(){
         return this.cycle;
     }
 
-    public void addInQueue(Entity entity){
-        this.forDelete.add(entity);
-    }
-
     public Map<Position, Entity> getObjsMap() {
-        return objsMap;
+        return new HashMap<>(objsMap);
     }
 
     public Map<Position, Entity> getNewObjsMap() {
-        return newObjsMap;
+        return new HashMap<>(newObjsMap);
     }
-
 
     public int getWidth() {
         return width;

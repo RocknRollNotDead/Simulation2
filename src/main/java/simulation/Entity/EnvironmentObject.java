@@ -13,7 +13,7 @@ public abstract class EnvironmentObject extends Entity{
     public Position doMove(Simulation simulation) {
         this.countLevels++;
         if(isDead()){
-            simulation.addInQueue(this);
+            simulation.addInQueueDel(this);
         }
         return this.getPosition();
     }
