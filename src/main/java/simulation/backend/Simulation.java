@@ -67,7 +67,7 @@ public class Simulation {
     public void doMove(){
 
         int aDebug = 0;
-        do{
+        //do{
             newObjsMap.clear();
             Iterator<Map.Entry<Position, Entity>> it = objsMap.entrySet().iterator();
             Position position;
@@ -81,42 +81,51 @@ public class Simulation {
                 position = entity.doMove(this);
                 entity.setPosition(position);
 
-
+                /***
+                 * итерируемся по нашей мапе, в идеале чтобы сначала прошлись по зайцу,
+                 * и когда дойдём до ягоды в этом же цикле проверяли бы не съели ли эту ягоду.
+                 * но зачастую по зайцу проходятся после прохождения по ягоде, и ягода остаётся в мапе до следующего цикла
+                 *
+                 * я пытался решить циклом вайл, чтобы ни в коем случае в следующий тур не переходить с устаревшей мапой,
+                 * но мне подсказали, что такие циклы вайл лучше не делать. Поэтому они закомментированы, и в следующий цикл всё-таки попадает устаревшая мапа
+                 * На выходящеё картинке это сказаться не должно, но я не 100% уверен в этом.
+                 */
                 if(!eatingList.contains(entity)){
 
                     newObjsMap.put(position, entity);
-                    objsSet.add(entity);
+                    //objsSet.add(entity);
 
                 }else{
 
-                    boolean resRemove = newObjsMap.remove(entity.getPosition(), entity);
-                    objsSet.remove(entity);
-
-                    counter.decrementCount(entity.getClass());
+//                    boolean resRemove = newObjsMap.remove(entity.getPosition(), entity);
+//                    counter.decrementCount(entity.getClass());//objsSet.remove(entity);
+                    boolean resRemove = deletingEntFromMap(entity, newObjsMap);
+                    log.info("res remove {} {}", resRemove, entity);
                     eatingList.remove(entity);
                 }
 
 
-                if (!forDelete.isEmpty() && entity.equals(forDelete.element())) {
-                    it.remove(); // безопасное удаление
+                /*if (!forDelete.isEmpty() && entity.equals(forDelete.element())) {
+                    it.remove(); // не знаю зачем удалять из objsMap, но без этого не работало.
                     newObjsMap.remove(position);
                     forDelete.remove();
-                    objsSet.remove(entity);
+                    //objsSet.remove(entity);
                     counter.decrementCount(entity.getClass());
-                }
+                }*/
             }
-            aDebug++;
-            if(!newObjsMap.values().containsAll(objsSet)){
-                log.error("{}    {}", newObjsMap.values(), objsSet);
-            }
-        }
-        while (!newObjsMap.values().containsAll(objsSet) && aDebug < 20);
+
+        //}
+        //while (!newObjsMap.values().containsAll(objsSet) && aDebug < 20);
+
 
         objsMap = new HashMap<>(newObjsMap);
 
+        //log.info("Map {}  eatlist {}", newObjsMap.values(), eatingList);
 
         this.cycle++;
         createEnts();
+        deleteLostInEatingList();
+        deleteObjectsQueue();
         log.info("cycle {}", cycle);
     }
 
@@ -144,6 +153,44 @@ public class Simulation {
             }
         }
 
+    }
+
+    private boolean deleteObjectsQueue(){
+        boolean result = false;
+
+        for(Entity entity : forDelete){
+            boolean res = deletingEntFromMap(entity, objsMap);
+            result = true;
+            log.info("удаление {}  res {}", entity, res);
+        }
+        forDelete.clear();
+        /*Position position = entity1.getPosition();
+        if (!forDelete.isEmpty() && entity1.equals(forDelete.element())) {
+            newObjsMap.remove(position);
+            forDelete.remove();
+            //objsSet.remove(entity);
+            counter.decrementCount(entity1.getClass());
+        }*/
+
+        return result;
+    }
+
+    private boolean deletingEntFromMap(Entity entity, Map<Position, Entity> map){
+        boolean resRemove = map.remove(entity.getPosition(), entity);
+//        objsMap.remove(entity.getPosition(), entity);
+        counter.decrementCount(entity.getClass());
+        return resRemove;
+
+    }
+
+    private boolean deleteLostInEatingList(){
+        boolean result = false;
+        for(Entity entity : eatingList){
+            counter.decrementCount(entity.getClass());
+            result = true;
+        }
+        eatingList.clear();
+        return result;
     }
 
     public void addInSetForEating(Entity entity){

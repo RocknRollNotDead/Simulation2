@@ -28,15 +28,15 @@ public class Creator {
         Randomizer random = new Randomizer();
         int x;
         int y;
-
+        int countAttempts = 0;
         do{
             x = random.get(width);
             y = random.get(heigh);
 
-            if(counter.getCount(clazz) < counter.getMaxCount(clazz) & (objects.get(new Position(x, y)) == null)){
+            if(counter.getCount(clazz) < counter.getMaxCount(clazz) && (objects.get(new Position(x, y)) == null)){
                 try {
                     entity = clazz.getDeclaredConstructor(int.class, int.class).newInstance(x, y);
-                    log.info("object was created: " + clazz.getSimpleName()/* + entity.getSymbol()*/ + " " +
+                    log.info("object was created: "/* + clazz.getSimpleName()*/ + entity.getSymbol() + " " +
                             entity.getPosition().getX() + " " + entity.getPosition().getY() + " count "
                             + counter.getCount(clazz) + "  maxCount " + counter.getMaxCount(clazz));
                 } catch (Exception e){
@@ -44,6 +44,12 @@ public class Creator {
                 }
 
             }
+            if (countAttempts > 20) {
+                log.error("Не удалось создать объект. Возможно, карта заполнена.");
+                return null;
+
+            }
+            countAttempts++;
         } while (entity == null);
         return entity;
     }

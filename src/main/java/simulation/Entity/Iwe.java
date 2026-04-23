@@ -14,7 +14,7 @@ public class Iwe extends EnvironmentObject {
     private static final String reset = "\u001B[39m"; // сброс только буквы
     private static final String gray = "\u001B[97m";
 
-    public static final String symbol = gray + "⦿" + reset;
+    public static final String symbol =  "⦿";//gray + + reset;
 
     public Iwe(int x, int y) {
         super(x, y);
