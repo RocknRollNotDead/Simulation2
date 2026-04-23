@@ -6,8 +6,6 @@ import simulation.backend.Simulation;
 
 public class Tree extends EnvironmentObject{
 
-    public final static int MAX_COUNT = 2;
-    public final static int MAX_LEVELS_OUT = 5;
     public final static int MAX_LEVEL_LIFE = Config.getMaxLevel(Tree.class);
     public final static String symbol = "\uD83C\uDF33";
 

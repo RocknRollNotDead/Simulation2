@@ -8,7 +8,6 @@ import java.util.Set;
 
 public class Randomizer {
     Random random = new Random();
-//    PlayingArea area;
 
     public Randomizer(){
     }
@@ -17,14 +16,10 @@ public class Randomizer {
         return random.nextInt(max);
     }
 
-    public int[] getMove(){
+    public Position getMove(){
 
         int znakX = random.nextInt(2);
         int znakY = random.nextInt(2);
-
-//        System.out.println("znak " + znakX);
-//        System.out.println("znak " + znakY);
-
         int randomX = random.nextInt(2);
         int randomY = random.nextInt(2);
 
@@ -34,7 +29,7 @@ public class Randomizer {
         if (znakY==0){
             randomY = randomY*(-1);
         }
-        return new int[]{randomX, randomY};
+        return new Position(randomX, randomY);
     }
 
     public Position getMove(Set<Position> setPos){
@@ -45,10 +40,4 @@ public class Randomizer {
             return arrPos[random.nextInt(arrPos.length)];
         }
     }
-
-    /*public int[] getCoordinates(){
-        int x = random.nextInt(this.area.getLenght()[0]);
-        int y = random.nextInt(this.area.getLenght()[1]);
-        return new int[]{x, y};
-    }*/
 }

@@ -15,7 +15,7 @@ public class OutForConsole {
         Map<Position, Entity> map = simulation.getObjsMap();
         System.out.println("Цикл " + simulation.getCycle());
         String symbol;
-        for (int i = 0; i < simulation.getHeigh(); i++) {
+        for (int i = 0; i < simulation.getHeight(); i++) {
             for (int j = 0; j < simulation.getWidth(); j++) {
                 if (map.get(new Position(j, i))==null){
                     symbol = " ";

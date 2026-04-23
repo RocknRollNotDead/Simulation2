@@ -16,9 +16,8 @@ public class Simulation {
 
     private final Queue<Entity> forDelete = new LinkedList<>();
     private final EntityCounter counter = new EntityCounter();
-    private final List<Class<? extends Entity>> types = new ArrayList<>(); // тут был arrayList
+    private final List<Class<? extends Entity>> types = new ArrayList<>();
     private final Set<Entity> eatingList = new HashSet<>();
-    private final Set<Entity> objsSet = new HashSet<>();
     private final Map<Position, Entity> newObjsMap = new HashMap<>();
     private Map<Position, Entity> objsMap = new HashMap<>();
     /**
@@ -26,7 +25,6 @@ public class Simulation {
      * у каждого класса
      * Счётчик следит за тем, сколько сущностей конкретного класса
      * eatingList - лист тех, кого сьедают. Управляется из классов <? наслед Animals>
-     * objSet - список всех объектов карты
      * objsMap хранит основную полноценную карту обьектов.
      * *
      * По objsMap мы иттерируемся, но записываем все объекты в newObsMap, и после итерации тупо записываем
@@ -34,7 +32,7 @@ public class Simulation {
      * */
 
 
-    private final int width, heigh;
+    private final int width, height;
     private long cycle;
     private final Creator creator;
 
@@ -49,7 +47,6 @@ public class Simulation {
         for(Class<?> clazz : types){
             counter.addClass(clazz);
         }
-
     }
 
 
@@ -58,66 +55,42 @@ public class Simulation {
     }
 
     public Simulation(int width, int heigh){
-
         this.width = width;
-        this.heigh = heigh;
+        this.height = heigh;
         this.creator = new Creator(counter, width, heigh);
     }
 
     public void doMove(){
 
-        int aDebug = 0;
-        //do{
-            newObjsMap.clear();
-            Iterator<Map.Entry<Position, Entity>> it = objsMap.entrySet().iterator();
-            Position position;
+        Position position;
+        newObjsMap.clear();
+        Iterator<Map.Entry<Position, Entity>> it = objsMap.entrySet().iterator();
 
-            while (it.hasNext()) {
-                Map.Entry<Position, Entity> entry = it.next();
-                Entity entity = entry.getValue();
+        while (it.hasNext()) {
+            Map.Entry<Position, Entity> entry = it.next();
+            Entity entity = entry.getValue();
 
+            entity.setPosition(entry.getKey());
+            position = entity.doMove(this);
+            entity.setPosition(position);
 
-                entity.setPosition(entry.getKey());
-                position = entity.doMove(this);
-                entity.setPosition(position);
-
-                /***
-                 * итерируемся по нашей мапе, в идеале чтобы сначала прошлись по зайцу,
-                 * и когда дойдём до ягоды в этом же цикле проверяли бы не съели ли эту ягоду.
-                 * но зачастую по зайцу проходятся после прохождения по ягоде, и ягода остаётся в мапе до следующего цикла
-                 *
-                 * я пытался решить циклом вайл, чтобы ни в коем случае в следующий тур не переходить с устаревшей мапой,
-                 * но мне подсказали, что такие циклы вайл лучше не делать. Поэтому они закомментированы, и в следующий цикл всё-таки попадает устаревшая мапа
-                 * На выходящеё картинке это сказаться не должно, но я не 100% уверен в этом.
-                 */
-                if(!eatingList.contains(entity)){
-
-                    newObjsMap.put(position, entity);
-                    //objsSet.add(entity);
-
-                }else{
-
-//                    boolean resRemove = newObjsMap.remove(entity.getPosition(), entity);
-//                    counter.decrementCount(entity.getClass());//objsSet.remove(entity);
-                    boolean resRemove = deletingEntFromMap(entity, newObjsMap);
-                    log.info("res remove {} {}", resRemove, entity);
-                    eatingList.remove(entity);
-                }
-
-
-                /*if (!forDelete.isEmpty() && entity.equals(forDelete.element())) {
-                    it.remove(); // не знаю зачем удалять из objsMap, но без этого не работало.
-                    newObjsMap.remove(position);
-                    forDelete.remove();
-                    //objsSet.remove(entity);
-                    counter.decrementCount(entity.getClass());
-                }*/
+            /***
+             * итерируемся по нашей мапе, в идеале чтобы сначала прошлись по зайцу,
+             * и когда дойдём до ягоды в этом же цикле проверяли бы не съели ли эту ягоду.
+             * но зачастую по зайцу проходятся после прохождения по ягоде, и ягода остаётся в мапе до следующего цикла
+             *
+             * я пытался решить циклом вайл, чтобы ни в коем случае в следующий тур не переходить с устаревшей мапой,
+             * но мне подсказали, что такие циклы вайл лучше не делать. Поэтому они закомментированы, и в следующий цикл всё-таки попадает устаревшая мапа
+             * На выходящеё картинке это сказаться не должно, но я не 100% уверен в этом.
+             */
+            if(!eatingList.contains(entity)){
+                newObjsMap.put(position, entity);
+            }else{
+                boolean resRemove = deletingEntFromMap(entity, newObjsMap);
+//                log.info("res remove {} {}", resRemove, entity);
+                eatingList.remove(entity);
             }
-
-        //}
-        //while (!newObjsMap.values().containsAll(objsSet) && aDebug < 20);
-
-
+        }
         objsMap = new HashMap<>(newObjsMap);
 
         //log.info("Map {}  eatlist {}", newObjsMap.values(), eatingList);
@@ -131,18 +104,19 @@ public class Simulation {
 
     private void createEnts(){
 
-
         for (Class<? extends Entity> clazz : types) {
-
             if (EntityCompare.isCountFill(clazz, counter)) {
                 counter.clearLevels(clazz);
             } else if (EntityCompare.isNeedToBeCreated(clazz, counter)) {
                 Entity entity = creator.execute(clazz, objsMap);
-                objsMap.put(entity.getPosition(), entity);
+                if (entity != null){
+                    objsMap.put(entity.getPosition(), entity);
 
-                // пофиксить что после создания третьего обьекта не идет ожидание перед четвертым
-                counter.incCount(clazz);
-
+                    // пофиксить что после создания третьего обьекта не идет ожидание перед четвертым
+                    counter.incCount(clazz);
+                } else {
+                    log.debug("не удалось создать объект {}", objsMap);
+                }
                 counter.incLevelsOut(clazz);
             } else {
                 counter.incLevelsOut(clazz);
@@ -161,17 +135,9 @@ public class Simulation {
         for(Entity entity : forDelete){
             boolean res = deletingEntFromMap(entity, objsMap);
             result = true;
-            log.info("удаление {}  res {}", entity, res);
+//            log.info("удаление {}  res {}", entity, res);
         }
         forDelete.clear();
-        /*Position position = entity1.getPosition();
-        if (!forDelete.isEmpty() && entity1.equals(forDelete.element())) {
-            newObjsMap.remove(position);
-            forDelete.remove();
-            //objsSet.remove(entity);
-            counter.decrementCount(entity1.getClass());
-        }*/
-
         return result;
     }
 
@@ -193,6 +159,13 @@ public class Simulation {
         return result;
     }
 
+    public boolean isPosExist(Position position){
+        int x = position.getX();
+        int y = position.getY();
+
+        return x >= 0 && x < width && y >= 0 && y < height;
+    }
+
     public void addInSetForEating(Entity entity){
         this.eatingList.add(entity);
     }
@@ -201,7 +174,8 @@ public class Simulation {
     }
 
     public long getCycle(){
-        return this.cycle;
+        long a = this.cycle;
+        return a;
     }
 
     public Map<Position, Entity> getObjsMap() {
@@ -216,7 +190,7 @@ public class Simulation {
         return width;
     }
 
-    public int getHeigh() {
-        return heigh;
+    public int getHeight() {
+        return height;
     }
 }

@@ -6,9 +6,6 @@ import simulation.util.Config;
 
 public class Iwe extends EnvironmentObject {
 
-
-    public static final int MAX_COUNT = 4;
-    public static final int MAX_LEVELS_OUT = 4;
     public static final int MAX_LEVEL_LIFE = Config.getMaxLevel(Iwe.class);
 
     private static final String reset = "\u001B[39m"; // сброс только буквы

@@ -20,9 +20,9 @@ public class Config {
 
     public static int getHeigh(){
         try{
-            return Integer.parseInt(env.get("HEIGH"));
+            return Integer.parseInt(env.get("HEIGHT"));
         }catch (RuntimeException e) {
-            log.error("Не удалось найти heigh");
+            log.error("Не удалось найти height");
             return 0;
         }
 
