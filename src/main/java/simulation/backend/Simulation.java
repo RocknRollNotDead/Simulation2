@@ -40,6 +40,7 @@ public class Simulation {
         types.add(Iwe.class);
         types.add(Tree.class);
         types.add(Hare.class);
+        types.add(Wolf.class);
         types.add(Berries.class);
 
         // добавить еще классов когда они будут готовы
@@ -64,32 +65,32 @@ public class Simulation {
 
         Position position;
         newObjsMap.clear();
-        Iterator<Map.Entry<Position, Entity>> it = objsMap.entrySet().iterator();
 
-        while (it.hasNext()) {
-            Map.Entry<Position, Entity> entry = it.next();
+        List<Map.Entry<Position, Entity>> entries = new ArrayList<>(objsMap.entrySet());
+        entries.sort(Comparator.comparingInt(this::getNumPriority));
+
+        for (Map.Entry<Position, Entity> entry : entries) {
             Entity entity = entry.getValue();
 
             entity.setPosition(entry.getKey());
             position = entity.doMove(this);
             entity.setPosition(position);
 
-            /***
-             * итерируемся по нашей мапе, в идеале чтобы сначала прошлись по зайцу,
-             * и когда дойдём до ягоды в этом же цикле проверяли бы не съели ли эту ягоду.
-             * но зачастую по зайцу проходятся после прохождения по ягоде, и ягода остаётся в мапе до следующего цикла
-             *
-             * я пытался решить циклом вайл, чтобы ни в коем случае в следующий тур не переходить с устаревшей мапой,
-             * но мне подсказали, что такие циклы вайл лучше не делать. Поэтому они закомментированы, и в следующий цикл всё-таки попадает устаревшая мапа
-             * На выходящеё картинке это сказаться не должно, но я не 100% уверен в этом.
-             */
-            if(!eatingList.contains(entity)){
+            if (!eatingList.contains(entity)) {
                 newObjsMap.put(position, entity);
-            }else{
+            } else {
                 boolean resRemove = deletingEntFromMap(entity, newObjsMap);
 //                log.info("res remove {} {}", resRemove, entity);
                 eatingList.remove(entity);
             }
+
+            /*if (objsMap.get(position) != newObjsMap.get(position) && objsMap.get(position) != null){
+                addInSetForEating(objsMap.get(position));
+                log.info(entity.getSymbol() + " eat " + objsMap.get(position).getSymbol() + " "
+                        + entity.getPosition().getX() + " " + entity.getPosition().getY());
+            }*/
+
+
         }
         objsMap = new HashMap<>(newObjsMap);
 
@@ -102,6 +103,8 @@ public class Simulation {
         log.info("cycle {}", cycle);
     }
 
+
+
     private void createEnts(){
 
         for (Class<? extends Entity> clazz : types) {
@@ -111,8 +114,6 @@ public class Simulation {
                 Entity entity = creator.execute(clazz, objsMap);
                 if (entity != null){
                     objsMap.put(entity.getPosition(), entity);
-
-                    // пофиксить что после создания третьего обьекта не идет ожидание перед четвертым
                     counter.incCount(clazz);
                 } else {
                     log.debug("не удалось создать объект {}", objsMap);
@@ -157,6 +158,15 @@ public class Simulation {
         }
         eatingList.clear();
         return result;
+    }
+
+    private int getNumPriority(Map.Entry<Position, Entity> e) {
+        return switch (e.getValue()) {
+            case EnvironmentObject environmentObject -> 1;
+            case PeacefulAnimal peacefulAnimal -> 2;
+            case Predator predator -> 3;
+            case null, default -> 0;
+        };
     }
 
     public boolean isPosExist(Position position){

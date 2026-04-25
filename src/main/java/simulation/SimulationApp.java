@@ -20,10 +20,7 @@ import javafx.stage.Stage; // Окно приложения
 import javafx.util.Duration; // Класс для задания длительности анимации
 
 // Импорты классов нашей симуляции
-import simulation.Entity.Berries;
-import simulation.Entity.Entity; // Базовый класс для всех объектов
-import simulation.Entity.Tree; // Класс дерева
-import simulation.Entity.Iwe; // Класс ивы
+import simulation.Entity.*;
 import simulation.backend.Position; // Класс для хранения координат (x, y)
 import simulation.backend.Simulation; // Основной класс симуляции
 import simulation.util.Config;
@@ -201,6 +198,7 @@ public class SimulationApp extends Application {
         if (e instanceof Tree) color = "#00FF00"; // Дерево - зеленый
         else if (e instanceof Iwe) color = "#CCCCCC"; // Ива - светло-серый
         else if (e instanceof Berries) color = "#FD0000";
+        else if (e instanceof Wolf) color = "#6E7376"; //"#5A5A5A"
 
         // Устанавливаем стиль: размер шрифта 24px, цвет текста
         node.setStyle("-fx-font-size:24px; -fx-text-fill:" + color + ";");

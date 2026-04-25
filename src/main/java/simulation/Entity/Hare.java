@@ -4,30 +4,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import simulation.backend.Position;
 import simulation.backend.Simulation;
+import simulation.util.Randomizer;
 
 import java.util.*;
 
 public class Hare extends PeacefulAnimal{
 
     private static final String SYMBOL = "\uD83D\uDC30"; // 🐰
-    private static final Logger log = LoggerFactory.getLogger(Hare.class);
-    private static final int COUNT_LIFES_FROM_BERRY = 5;
     private static final int COUNT_LIFES_FIRST_TIME = 30;
-    private static final int MAX_COUNT_LIFES = 50;
-    private static int count;
+    private static final int MAX_COUNT_LIFES = COUNT_LIFES_FIRST_TIME + 20;
 
-    private final int id;
-    private int lifes = COUNT_LIFES_FIRST_TIME;
-    private boolean isDead;
 
     public Hare(int x, int y) {
         super(x, y);
-        count++;
-        id = count;
     }
 
 
-
+    /*
     @Override
     public Position doMove(Simulation simulation) {
 
@@ -68,8 +61,6 @@ public class Hare extends PeacefulAnimal{
 
     private Position searchEat(Position animPos, Map<Position, Entity> objsMap){
 
-        //pos = в objsMap ищется ближайшая ягода к animPos
-
         Position pos = objsMap.entrySet().stream()
                 .filter(e -> e.getValue() instanceof Edible)
                 .min(Comparator.comparingInt(e ->
@@ -92,7 +83,7 @@ public class Hare extends PeacefulAnimal{
 
     }
 
-    private boolean checkEating(Simulation simulation, Position newPosition){
+    protected boolean checkEating(Simulation simulation, Position newPosition){
         Entity entity = simulation.getObjsMap().get(newPosition);
         return (entity instanceof Edible);
 
@@ -102,13 +93,13 @@ public class Hare extends PeacefulAnimal{
         boolean result = false;
         if (simulation.getObjsMap().containsKey(position)){
             if (simulation.getObjsMap().get(position).getClass() != Hare.class &&
-                    !(simulation.getObjsMap().get(position) instanceof Edible)/*.getClass() != Berries.class*/){
+                    !(simulation.getObjsMap().get(position) instanceof Edible)){
                 result = true;
             }
 
         }
         if(simulation.getNewObjsMap().containsKey(position) &&
-                !(simulation.getNewObjsMap().get(position) instanceof Edible)/*.getClass() != Berries.class*/){
+                !(simulation.getNewObjsMap().get(position) instanceof Edible)){
             result = true;
         }
         return result;
@@ -162,10 +153,21 @@ public class Hare extends PeacefulAnimal{
                 )
                 .orElse(null);
     }
+*/
 
     @Override
-    protected boolean isDead() {
-        return isDead;
+    protected boolean isEntityEdible(Entity entity) {
+        return entity instanceof Edible;
+    }
+
+    @Override
+    protected int getCountLifesFirstTime() {
+        return COUNT_LIFES_FIRST_TIME;
+    }
+
+    @Override
+    protected int getMaxCountLifes() {
+        return MAX_COUNT_LIFES;
     }
 
     @Override
@@ -173,8 +175,4 @@ public class Hare extends PeacefulAnimal{
         return SYMBOL;
     }
 
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + " " + getPosition();
-    }
 }
