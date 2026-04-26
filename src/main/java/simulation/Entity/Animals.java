@@ -118,7 +118,7 @@ public abstract class Animals extends Entity{
                                         Math.abs(predPos.getX() - pos.getX()), // расстояние Чебышёва
                                         Math.abs(predPos.getY() - pos.getY())
                                 ))
-                        .thenComparingInt(pos -> getCountMovesFromPos1toPos2(pos, eatPos))
+                        .thenComparingInt(pos -> eatPos != null ? getCountMovesFromPos1toPos2(pos, eatPos) : 0)
                 )
                 .orElse(null);
     }
