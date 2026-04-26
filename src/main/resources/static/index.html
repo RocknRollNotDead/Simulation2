@@ -150,6 +150,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
     <script>
+        // Определяем базовый путь (для работы как на localhost, так и на /simulation)
+        const BASE_PATH = window.location.pathname.includes('/simulation') ? '/simulation' : '';
+        const API_BASE = window.location.origin + BASE_PATH;
+        
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         
@@ -232,7 +236,7 @@
         }
         
         async function loadConfig() {
-            const response = await fetch('http://localhost:8080/api/simulation/config');
+            const response = await fetch(API_BASE + '/api/simulation/config');
             const config = await response.json();
             WIDTH = config.width;
             HEIGHT = config.height;
@@ -266,7 +270,7 @@
         }
         
         function connect() {
-            const socket = new SockJS('http://localhost:8080/ws');
+            const socket = new SockJS(API_BASE + '/ws');
             stompClient = Stomp.over(socket);
             stompClient.debug = null;
             
@@ -293,7 +297,7 @@
         
         async function fetchState() {
             try {
-                const response = await fetch('http://localhost:8080/api/simulation/state');
+                const response = await fetch(API_BASE + '/api/simulation/state');
                 const state = await response.json();
                 updateSimulation(state);
             } catch (e) {}
@@ -431,20 +435,20 @@
         }
         
         async function startSimulation() {
-            await fetch('http://localhost:8080/api/simulation/start', { method: 'POST' });
+            await fetch(API_BASE + '/api/simulation/start', { method: 'POST' });
         }
         
         async function pauseSimulation() {
-            await fetch('http://localhost:8080/api/simulation/pause', { method: 'POST' });
+            await fetch(API_BASE + '/api/simulation/pause', { method: 'POST' });
         }
         
         async function stepSimulation() {
-            await fetch('http://localhost:8080/api/simulation/step', { method: 'POST' });
+            await fetch(API_BASE + '/api/simulation/step', { method: 'POST' });
             await fetchState();
         }
         
         async function resetSimulation() {
-            await fetch('http://localhost:8080/api/simulation/reset', { method: 'POST' });
+            await fetch(API_BASE + '/api/simulation/reset', { method: 'POST' });
             entities.clear();
             await fetchState();
         }

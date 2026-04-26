@@ -183,7 +183,7 @@ public class Simulation {
     
     public void addEatingEvent(Entity eater, Entity eaten){
         String event = eater.toString() + " съел " + eaten.toString();
-        eatingEvents.add(event);
+        eatingEvents.add(event);    // это вайбкод для веб версии
         log.info(event);
     }
     
