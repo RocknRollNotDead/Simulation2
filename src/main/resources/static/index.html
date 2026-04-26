@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Симуляция животного мира</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .main-content {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .left-panel {
+            flex: 1;
+        }
+        
+        .controls {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cycle-label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-right: auto;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        button.start { background: #4CAF50; color: white; }
+        button.pause { background: #ff9800; color: white; }
+        button.step { background: #2196F3; color: white; }
+        button.reset { background: #f44336; color: white; }
+        
+        button:hover { transform: scale(1.05); }
+        
+        .status {
+            background: #2a2a2a;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .status.connected { background: #2e7d32; }
+        .status.disconnected { background: #c62828; }
+        
+        .canvas-container {
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        #canvas {
+            display: block;
+        }
+        
+        .entity-list {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 600px;
+            overflow-y: auto;
+            min-width: 300px;
+        }
+        
+        .entity-list h3 {
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+        
+        .entity-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: #1a1a1a;
+            border-radius: 4px;
+            font-size: 14px;
+            border-left: 3px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Симуляция животного мира</h1>
+        
+        <div class="main-content">
+            <div class="left-panel">
+                <div id="status" class="status disconnected">Подключение...</div>
+                
+                <div class="controls">
+                    <span class="cycle-label" id="cycle">Цикл: 0</span>
+                    <button class="start" onclick="startSimulation()">Старт</button>
+                    <button class="pause" onclick="pauseSimulation()">Пауза</button>
+                    <button class="step" onclick="stepSimulation()">Шаг</button>
+                    <button class="reset" onclick="resetSimulation()">Сброс</button>
+                </div>
+                
+                <div class="canvas-container">
+                    <canvas id="canvas"></canvas>
+                </div>
+            </div>
+            
+            <div class="entity-list">
+                <h3>Объекты на карте:</h3>
+                <div id="entities"></div>
+                
+                <h3 style="margin-top: 20px;">События:</h3>
+                <div id="events" style="max-height: 200px; overflow-y: auto;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        const CELL_SIZE = 40;
+        let WIDTH, HEIGHT;
+        let stompClient = null;
+        let pollingInterval = null;
+        
+        // Хранилище сущностей
+        const entities = new Map();
+        let entityIdCounter = 0;
+        
+        class AnimatedEntity {
+            constructor(data, id) {
+                this.id = id;
+                this.data = data;
+                this.x = data.x;
+                this.y = data.y;
+                this.targetX = data.x;
+                this.targetY = data.y;
+                this.opacity = 0;
+                this.scale = 0.8;
+                this.appearing = true;
+                this.disappearing = false;
+            }
+            
+            update() {
+                if (this.appearing) {
+                    this.opacity = Math.min(1, this.opacity + 0.08);
+                    this.scale = Math.min(1, this.scale + 0.06);
+                    if (this.opacity >= 1) this.appearing = false;
+                }
+                
+                if (this.disappearing) {
+                    this.opacity = Math.max(0, this.opacity - 0.08);
+                    this.scale = Math.min(2, this.scale + 0.12);
+                    return this.opacity > 0;
+                }
+                
+                // Движение
+                const dx = this.targetX - this.x;
+                const dy = this.targetY - this.y;
+                
+                if (Math.abs(dx) > 0.01 || Math.abs(dy) > 0.01) {
+                    this.x += dx * 0.12;
+                    this.y += dy * 0.12;
+                    this.scale = 0.9 + Math.abs(Math.sin(Date.now() / 200)) * 0.1;
+                } else {
+                    this.x = this.targetX;
+                    this.y = this.targetY;
+                    this.scale = 1;
+                }
+                
+                return true;
+            }
+            
+            moveTo(x, y) {
+                this.targetX = x;
+                this.targetY = y;
+            }
+            
+            draw() {
+                const px = this.x * CELL_SIZE + CELL_SIZE / 2;
+                const py = this.y * CELL_SIZE + CELL_SIZE / 2;
+                
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.translate(px, py);
+                ctx.scale(this.scale, this.scale);
+                
+                ctx.font = '24px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = getColor(this.data.type);
+                
+                const symbol = decodeSymbol(this.data.symbol);
+                ctx.fillText(symbol, 0, 0);
+                ctx.restore();
+            }
+        }
+        
+        async function loadConfig() {
+            const response = await fetch('http://localhost:8080/api/simulation/config');
+            const config = await response.json();
+            WIDTH = config.width;
+            HEIGHT = config.height;
+            
+            canvas.width = WIDTH * CELL_SIZE;
+            canvas.height = HEIGHT * CELL_SIZE;
+            
+            drawGrid();
+        }
+        
+        function drawGrid() {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            
+            for (let x = 0; x <= WIDTH; x++) {
+                ctx.beginPath();
+                ctx.moveTo(x * CELL_SIZE, 0);
+                ctx.lineTo(x * CELL_SIZE, HEIGHT * CELL_SIZE);
+                ctx.stroke();
+            }
+            
+            for (let y = 0; y <= HEIGHT; y++) {
+                ctx.beginPath();
+                ctx.moveTo(0, y * CELL_SIZE);
+                ctx.lineTo(WIDTH * CELL_SIZE, y * CELL_SIZE);
+                ctx.stroke();
+            }
+        }
+        
+        function connect() {
+            const socket = new SockJS('http://localhost:8080/ws');
+            stompClient = Stomp.over(socket);
+            stompClient.debug = null;
+            
+            stompClient.connect({}, function() {
+                document.getElementById('status').textContent = '✓ Подключено';
+                document.getElementById('status').className = 'status connected';
+                
+                stompClient.subscribe('/topic/simulation', function(msg) {
+                    updateSimulation(JSON.parse(msg.body));
+                });
+                
+                fetchState();
+            }, function() {
+                document.getElementById('status').textContent = '⚠ Режим опроса';
+                document.getElementById('status').className = 'status disconnected';
+                startPolling();
+            });
+        }
+        
+        function startPolling() {
+            if (pollingInterval) clearInterval(pollingInterval);
+            pollingInterval = setInterval(fetchState, 500);
+        }
+        
+        async function fetchState() {
+            try {
+                const response = await fetch('http://localhost:8080/api/simulation/state');
+                const state = await response.json();
+                updateSimulation(state);
+            } catch (e) {}
+        }
+        
+        function getColor(type) {
+            const colors = {
+                'Tree': '#00FF00',
+                'Iwe': '#CCCCCC',
+                'Berries': '#FD0000',
+                'Wolf': '#6E7376',
+                'Hare': '#FFFFFF'
+            };
+            return colors[type] || '#FFFFFF';
+        }
+        
+        function decodeSymbol(symbol) {
+            if (!symbol) return '?';
+            let s = symbol.replace(/\\u001B\[[0-9;]*m/g, '');
+            s = s.replace(/\u001B\[[0-9;]*m/g, '');
+            try { s = JSON.parse('"' + s + '"'); } catch (e) {}
+            return s;
+        }
+        
+        function updateSimulation(state) {
+            document.getElementById('cycle').textContent = 'Цикл: ' + state.cycle;
+            
+            const currentByKey = new Map();
+            const currentList = [];
+            
+            if (state.entities) {
+                state.entities.forEach(e => {
+                    const key = `${e.type}_${e.toString}`;
+                    currentByKey.set(key, e);
+                    currentList.push(e);
+                });
+            }
+            
+            // Обновляем существующие
+            entities.forEach((animEntity, id) => {
+                const key = `${animEntity.data.type}_${animEntity.data.toString}`;
+                const newData = currentByKey.get(key);
+                
+                if (newData) {
+                    if (newData.x !== animEntity.targetX || newData.y !== animEntity.targetY) {
+                        animEntity.moveTo(newData.x, newData.y);
+                    }
+                    animEntity.data = newData;
+                    currentByKey.delete(key);
+                } else {
+                    animEntity.disappearing = true;
+                }
+            });
+            
+            // Добавляем новые
+            currentByKey.forEach(data => {
+                entities.set(entityIdCounter++, new AnimatedEntity(data, entityIdCounter));
+            });
+            
+            updateEntityList(currentList);
+            
+            // Обновляем события
+            if (state.events) {
+                updateEventsList(state.events);
+            }
+        }
+        
+        function updateEntityList(list) {
+            const container = document.getElementById('entities');
+            container.innerHTML = '';
+            
+            const grouped = {};
+            list.forEach(e => {
+                if (!grouped[e.type]) grouped[e.type] = [];
+                grouped[e.type].push(e);
+            });
+            
+            Object.keys(grouped).sort().forEach(type => {
+                const header = document.createElement('div');
+                header.style.fontWeight = 'bold';
+                header.style.marginTop = '10px';
+                header.style.color = getColor(type);
+                header.textContent = `${type} (${grouped[type].length}):`;
+                container.appendChild(header);
+                
+                grouped[type].forEach(e => {
+                    const item = document.createElement('div');
+                    item.className = 'entity-item';
+                    item.style.borderLeftColor = getColor(e.type);
+                    item.textContent = `${decodeSymbol(e.symbol)} ${e.toString}`;
+                    container.appendChild(item);
+                });
+            });
+        }
+        
+        function updateEventsList(events) {
+            const container = document.getElementById('events');
+            container.innerHTML = '';
+            
+            events.forEach(event => {
+                const item = document.createElement('div');
+                item.className = 'entity-item';
+                
+                // Цвет в зависимости от типа события
+                if (event.type === 'eating') {
+                    item.style.borderLeftColor = '#FD0000';
+                } else if (event.type === 'death') {
+                    item.style.borderLeftColor = '#666';
+                } else if (event.type === 'reset') {
+                    item.style.borderLeftColor = '#2196F3';
+                } else {
+                    item.style.borderLeftColor = '#4CAF50';
+                }
+                
+                // Форматируем время
+                const date = new Date(event.timestamp);
+                const time = date.toLocaleTimeString();
+                
+                item.textContent = `[${time}] ${event.message}`;
+                container.appendChild(item);
+            });
+        }
+        
+        function animate() {
+            drawGrid();
+            
+            const toDelete = [];
+            entities.forEach((e, id) => {
+                if (!e.update()) toDelete.push(id);
+                else e.draw();
+            });
+            
+            toDelete.forEach(id => entities.delete(id));
+            requestAnimationFrame(animate);
+        }
+        
+        async function startSimulation() {
+            await fetch('http://localhost:8080/api/simulation/start', { method: 'POST' });
+        }
+        
+        async function pauseSimulation() {
+            await fetch('http://localhost:8080/api/simulation/pause', { method: 'POST' });
+        }
+        
+        async function stepSimulation() {
+            await fetch('http://localhost:8080/api/simulation/step', { method: 'POST' });
+            await fetchState();
+        }
+        
+        async function resetSimulation() {
+            await fetch('http://localhost:8080/api/simulation/reset', { method: 'POST' });
+            entities.clear();
+            await fetchState();
+        }
+        
+        window.onload = async function() {
+            await loadConfig();
+            connect();
+            animate();
+        };
+    </script>
+</body>
+</html>

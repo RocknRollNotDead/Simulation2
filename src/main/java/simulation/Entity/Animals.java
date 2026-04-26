@@ -139,6 +139,7 @@ public abstract class Animals extends Entity{
 
     private void eating(Simulation simulation, Entity entity){
         simulation.addInSetForEating(entity);
+        simulation.addEatingEvent(this, entity);
         log.trace("eating  " + entity.getPosition().getX() + " " + entity.getPosition().getY());
         if (lifes < getMaxCountLifes()){
             lifes = lifes + COUNT_LIFES_FROM_EAT;
@@ -231,7 +232,7 @@ public abstract class Animals extends Entity{
 
     @Override
     public String toString() {
-        return getSymbol() + getClass().getSimpleName() + getId() + " " + getPosition();
+        return getClass().getSimpleName() + getId() + " " + getPosition();
     }
 
     protected abstract boolean isEntityCanEatMe(Entity entity);

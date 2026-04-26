@@ -20,6 +20,7 @@ public class Simulation {
     private final Set<Entity> eatingList = new HashSet<>();
     private final Map<Position, Entity> newObjsMap = new HashMap<>();
     private Map<Position, Entity> objsMap = new HashMap<>();
+    private final List<String> eatingEvents = new ArrayList<>();
     /**
      * forDelete - туда попадают сущности, которые надо удалить, чтобы удалять их не сразу, а один ход = одно удаление
      * у каждого класса
@@ -179,13 +180,27 @@ public class Simulation {
     public void addInSetForEating(Entity entity){
         this.eatingList.add(entity);
     }
+    
+    public void addEatingEvent(Entity eater, Entity eaten){
+        String event = eater.toString() + " съел " + eaten.toString();
+        eatingEvents.add(event);
+        log.info(event);
+    }
+    
+    public List<String> getEatingEvents(){
+        return new ArrayList<>(eatingEvents);
+    }
+    
+    public void clearEatingEvents(){
+        eatingEvents.clear();
+    }
+    
     public void addInQueueDel(Entity entity){
         this.forDelete.add(entity);
     }
 
     public long getCycle(){
-        long a = this.cycle;
-        return a;
+        return this.cycle;
     }
 
     public Map<Position, Entity> getObjsMap() {

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simulation</title>
+    <style>
+        #canvas {
+            border: 1px solid black;
+            background: #f0f0f0;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="controls">
+    <button onclick="startSimulation()">Start</button>
+    <button onclick="pauseSimulation()">Pause</button>
+    <button onclick="resetSimulation()">Reset</button>
+    <span id="cycle">Cycle: 0</span>
+</div>
+
+<canvas id="canvas" width="800" height="600"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const CELL_SIZE = 40;
+    const WIDTH = 20;
+    const HEIGHT = 15;
+
+    let stompClient = null;
+
+    // Подключение к WebSocket
+    function connect() {
+        const socket = new SockJS('http://localhost:8080/ws');
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function(frame) {
+            console.log('Connected: ' + frame);
+
+            // Подписываемся на обновления симуляции
+            stompClient.subscribe('/topic/simulation', function(message) {
+                const state = JSON.parse(message.body);
+                renderSimulation(state);
+            });
+        });
+    }
+
+    // Отрисовка симуляции
+    function renderSimulation(state) {
+        // Очищаем canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Рисуем сетку
+        drawGrid();
+
+        // Рисуем сущности
+        state.entities.forEach(entity => {
+            drawEntity(entity);
+        });
+
+        // Обновляем счетчик циклов
+        document.getElementById('cycle').textContent = 'Cycle: ' + state.cycle;
+    }
+
+    function drawGrid() {
+        ctx.strokeStyle = '#ddd';
+        ctx.lineWidth = 1;
+
+        for (let x = 0; x <= WIDTH; x++) {
+            ctx.beginPath();
+            ctx.moveTo(x * CELL_SIZE, 0);
+            ctx.lineTo(x * CELL_SIZE, HEIGHT * CELL_SIZE);
+            ctx.stroke();
+        }
+
+        for (let y = 0; y <= HEIGHT; y++) {
+            ctx.beginPath();
+            ctx.moveTo(0, y * CELL_SIZE);
+            ctx.lineTo(WIDTH * CELL_SIZE, y * CELL_SIZE);
+            ctx.stroke();
+        }
+    }
+
+    function drawEntity(entity) {
+        const x = entity.x * CELL_SIZE + CELL_SIZE / 2;
+        const y = entity.y * CELL_SIZE + CELL_SIZE / 2;
+
+        // Рисуем символ (эмодзи)
+        ctx.font = '30px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(entity.symbol, x, y);
+    }
+
+    // API вызовы
+    async function startSimulation() {
+        await fetch('http://localhost:8080/api/simulation/start', {
+            method: 'POST'
+        });
+    }
+
+    async function pauseSimulation() {
+        await fetch('http://localhost:8080/api/simulation/pause', {
+            method: 'POST'
+        });
+    }
+
+    async function resetSimulation() {
+        await fetch('http://localhost:8080/api/simulation/reset', {
+            method: 'POST'
+        });
+    }
+
+    // Подключаемся при загрузке страницы
+    window.onload = function() {
+        connect();
+    };
+</script>
+</body>
+</html>
