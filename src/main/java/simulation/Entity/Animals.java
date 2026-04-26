@@ -58,13 +58,19 @@ public abstract class Animals extends Entity{
         Position newPos;
         Position position = getPosition();
         Set<Position> setPos = calculateFreePositions(simulation, position);
-        Position predPos = searchPredator(position, simulation.getObjsMap());
-        Position berPos = searchEat(position, simulation.getObjsMap());
 
-        if (predPos != null) {
-            newPos = leavingFromPred(setPos, predPos);
+        Position dangPos = searchDanger(position, simulation.getObjsMap());
+        Position eatPos = searchEat(position, simulation.getObjsMap());
+        int countLifesToDeadWithSimultaneousVisionDangerousAndEat = 5;
+
+        if (dangPos != null) {
+            if (lifes > countLifesToDeadWithSimultaneousVisionDangerousAndEat){
+                newPos = leavingFromDanger(setPos, dangPos, simulation);
+            } else {
+                newPos = leavingFromDangerAndSearchEat(setPos, dangPos, eatPos);
+            }
         } else {
-            newPos = searchPosition(setPos, berPos);
+            newPos = searchPosition(setPos, eatPos);
         }
 
         if (newPos == null) {
@@ -75,7 +81,7 @@ public abstract class Animals extends Entity{
 
 
 
-    private Position searchPredator(Position position, Map<Position, Entity> objsMap) {
+    private Position searchDanger(Position position, Map<Position, Entity> objsMap) {
 
         return objsMap.entrySet().stream()
                 .filter(e-> Math.abs(e.getKey().getX() - position.getX()) <= 2 &&
@@ -91,8 +97,7 @@ public abstract class Animals extends Entity{
     }
 
 
-    private Position leavingFromPred( Set<Position> setPos, Position predPos) {
-
+    private Position leavingFromDanger(Set<Position> setPos, Position predPos, Simulation simulation) {
         return setPos.stream()
                 .max(Comparator
                         .comparingInt((Position pos) ->
@@ -100,15 +105,24 @@ public abstract class Animals extends Entity{
                                         Math.abs(predPos.getX() - pos.getX()),
                                         Math.abs(predPos.getY() - pos.getY())
                                 ))
-                        .thenComparingInt(pos -> Math.max(
-                                Math.abs(predPos.getX() - pos.getX()),
-                                Math.abs(predPos.getY() - pos.getY())
-                        ))
-
+                        .thenComparingInt(pos -> isEntityEdible(simulation.getNewObjsMap().get(pos)) ? 1 : 0)
                 )
                 .orElse(null);
-
     }
+
+    private Position leavingFromDangerAndSearchEat(Set<Position> setPos, Position predPos, Position eatPos) {
+        return setPos.stream()
+                .max(Comparator
+                        .comparingInt((Position pos) ->
+                                Math.max(
+                                        Math.abs(predPos.getX() - pos.getX()), // расстояние Чебышёва
+                                        Math.abs(predPos.getY() - pos.getY())
+                                ))
+                        .thenComparingInt(pos -> getCountMovesFromPos1toPos2(pos, eatPos))
+                )
+                .orElse(null);
+    }
+
 
     private Position searchEat(Position animPos, Map<Position, Entity> objsMap){
 
@@ -179,6 +193,12 @@ public abstract class Animals extends Entity{
         } else {
             return random.getMove(setPos);
         }
+    }
+
+    private int getCountMovesFromPos1toPos2(Position pos, Position targetPos){
+        return Math.max(
+                Math.abs(pos.getX() - targetPos.getX()), // Расстояние Чебышёва
+                Math.abs(pos.getY() - targetPos.getY()));
     }
 
     private Position searchNearestPos(Set<Position> setPos, Position targetPos){
