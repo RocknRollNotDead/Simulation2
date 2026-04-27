@@ -183,7 +183,13 @@ public class Simulation {
     
     public void addEatingEvent(Entity eater, Entity eaten){
         String event = eater.toString() + " съел " + eaten.toString();
-        eatingEvents.add(event);    // это вайбкод для веб версии
+        eatingEvents.add(event);
+        log.info(event);
+    }
+    
+    public void addDeathEvent(Entity entity){
+        String event = entity.toString() + " умер";
+        eatingEvents.add(event);
         log.info(event);
     }
     
@@ -204,11 +210,11 @@ public class Simulation {
     }
 
     public Map<Position, Entity> getObjsMap() {
-        return new HashMap<>(objsMap);
+        return  Collections.unmodifiableMap(objsMap);
     }
 
     public Map<Position, Entity> getNewObjsMap() {
-        return new HashMap<>(newObjsMap);
+        return Collections.unmodifiableMap(newObjsMap);
     }
 
     public int getWidth() {

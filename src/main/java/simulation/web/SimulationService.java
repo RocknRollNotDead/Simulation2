@@ -43,10 +43,17 @@ public class SimulationService {
             if (isRunning) {
                 simulation.doMove();
                 
-                // Получаем события eating из симуляции
+                // Получаем события из симуляции
                 List<String> events = simulation.getEatingEvents();
                 for (String event : events) {
-                    addEvent("eating", event);
+                    // Определяем тип события по содержимому
+                    if (event.contains("умер")) {
+                        addEvent("death", event);
+                    } else if (event.contains("съел")) {
+                        addEvent("eating", event);
+                    } else {
+                        addEvent("info", event);
+                    }
                 }
                 simulation.clearEatingEvents();
 
@@ -74,10 +81,17 @@ public class SimulationService {
     public void step() {
         simulation.doMove();
         
-        // Получаем события eating из симуляции
+        // Получаем события из симуляции
         List<String> events = simulation.getEatingEvents();
         for (String event : events) {
-            addEvent("eating", event);
+            // Определяем тип события по содержимому
+            if (event.contains("умер")) {
+                addEvent("death", event);
+            } else if (event.contains("съел")) {
+                addEvent("eating", event);
+            } else {
+                addEvent("info", event);
+            }
         }
         simulation.clearEatingEvents();
     }

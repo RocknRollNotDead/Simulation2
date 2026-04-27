@@ -44,6 +44,7 @@ public abstract class Animals extends Entity{
 
         if (lifes <= 0){
             simulation.addInQueueDel(this);
+            simulation.addDeathEvent(this);
             isDead = true;
             log.info(" " + this.getClass().getSimpleName() + getId() + " DEAD!X!X! ");
         }
