@@ -263,6 +263,14 @@
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
     <script>
+        // Генерируем уникальный ID пользователя
+        let userId = localStorage.getItem('simulationUserId');
+        if (!userId) {
+            userId = 'user_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+            localStorage.setItem('simulationUserId', userId);
+        }
+        console.log('User ID:', userId);
+        
         // Определяем базовый путь (для работы как на localhost, так и на /simulation)
         const BASE_PATH = window.location.pathname.includes('/simulation') ? '/simulation' : '';
         const API_BASE = window.location.origin + BASE_PATH;
@@ -391,7 +399,8 @@
                 document.getElementById('status').textContent = '✓ Подключено';
                 document.getElementById('status').className = 'status connected';
                 
-                stompClient.subscribe('/topic/simulation', function(msg) {
+                // Подписываемся на персональный топик пользователя
+                stompClient.subscribe('/topic/simulation/' + userId, function(msg) {
                     updateSimulation(JSON.parse(msg.body));
                 });
                 
@@ -410,7 +419,7 @@
         
         async function fetchState() {
             try {
-                const response = await fetch(API_BASE + '/api/simulation/state');
+                const response = await fetch(API_BASE + '/api/simulation/state?userId=' + userId);
                 const state = await response.json();
                 updateSimulation(state);
             } catch (e) {}
@@ -548,20 +557,20 @@
         }
         
         async function startSimulation() {
-            await fetch(API_BASE + '/api/simulation/start', { method: 'POST' });
+            await fetch(API_BASE + '/api/simulation/start?userId=' + userId, { method: 'POST' });
         }
         
         async function pauseSimulation() {
-            await fetch(API_BASE + '/api/simulation/pause', { method: 'POST' });
+            await fetch(API_BASE + '/api/simulation/pause?userId=' + userId, { method: 'POST' });
         }
         
         async function stepSimulation() {
-            await fetch(API_BASE + '/api/simulation/step', { method: 'POST' });
+            await fetch(API_BASE + '/api/simulation/step?userId=' + userId, { method: 'POST' });
             await fetchState();
         }
         
         async function resetSimulation() {
-            await fetch(API_BASE + '/api/simulation/reset', { method: 'POST' });
+            await fetch(API_BASE + '/api/simulation/reset?userId=' + userId, { method: 'POST' });
             entities.clear();
             await fetchState();
         }

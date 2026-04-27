@@ -11,10 +11,7 @@ import simulation.util.Config;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.*;
 
 @Service
 public class SimulationService {
@@ -22,99 +19,136 @@ public class SimulationService {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
-    private Simulation simulation;
+    // Хранилище симуляций для каждого пользователя
+    private final Map<String, UserSimulation> simulations = new ConcurrentHashMap<>();
     private ScheduledExecutorService scheduler;
-    private boolean isRunning = false;
-    private List<SimulationEvent> recentEvents = new CopyOnWriteArrayList<>();
+    
+    // Класс для хранения данных симуляции пользователя
+    private static class UserSimulation {
+        Simulation simulation;
+        boolean isRunning;
+        List<SimulationEvent> recentEvents;
+        long lastAccessTime;
+        
+        UserSimulation() {
+            this.simulation = new Simulation();
+            this.isRunning = false;
+            this.recentEvents = new CopyOnWriteArrayList<>();
+            this.lastAccessTime = System.currentTimeMillis();
+        }
+        
+        void updateAccessTime() {
+            this.lastAccessTime = System.currentTimeMillis();
+        }
+    }
+
     private static final int MAX_EVENTS = 50;
 
     public SimulationService() {
-        this.simulation = new Simulation();
-    }
-
-    public void start() {
-        if (isRunning) {
-            return;
-        }
+        // Глобальный планировщик для всех симуляций
+        scheduler = Executors.newScheduledThreadPool(4);
         
-        isRunning = true;
-        scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            if (isRunning) {
-                simulation.doMove();
+        // Запускаем задачу обновления всех активных симуляций
+        scheduler.scheduleAtFixedRate(this::updateAllSimulations, 0, 500, TimeUnit.MILLISECONDS);
+        
+        // Очистка неактивных симуляций каждые 5 минут
+        scheduler.scheduleAtFixedRate(this::cleanupInactiveSimulations, 5, 5, TimeUnit.MINUTES);
+    }
+    
+    private UserSimulation getOrCreateSimulation(String userId) {
+        UserSimulation sim = simulations.computeIfAbsent(userId, id -> new UserSimulation());
+        sim.updateAccessTime();
+        return sim;
+    }
+    
+    private void updateAllSimulations() {
+        simulations.forEach((userId, userSim) -> {
+            if (userSim.isRunning) {
+                userSim.simulation.doMove();
                 
                 // Получаем события из симуляции
-                List<String> events = simulation.getEatingEvents();
+                List<String> events = userSim.simulation.getEatingEvents();
                 for (String event : events) {
-                    // Определяем тип события по содержимому
                     if (event.contains("умер")) {
-                        addEvent("death", event);
+                        addEventToUser(userSim, "death", event);
                     } else if (event.contains("съел")) {
-                        addEvent("eating", event);
+                        addEventToUser(userSim, "eating", event);
                     } else {
-                        addEvent("info", event);
+                        addEventToUser(userSim, "info", event);
                     }
                 }
-                simulation.clearEatingEvents();
+                userSim.simulation.clearEatingEvents();
 
-                // Отправляем состояние всем подключенным клиентам
-                SimulationState state = buildState();
-                messagingTemplate.convertAndSend("/topic/simulation", state);
+                // Отправляем состояние только этому пользователю
+                SimulationState state = buildState(userSim);
+                messagingTemplate.convertAndSend("/topic/simulation/" + userId, state);
             }
-        }, 0, 500, TimeUnit.MILLISECONDS);
+        });
+    }
+    
+    private void cleanupInactiveSimulations() {
+        // Удаляем симуляции, которые не активны более 30 минут
+        long thirtyMinutesAgo = System.currentTimeMillis() - (30 * 60 * 1000);
+        simulations.entrySet().removeIf(entry -> 
+            entry.getValue().lastAccessTime < thirtyMinutesAgo
+        );
     }
 
-    public void pause() {
-        isRunning = false;
-        if (scheduler != null) {
-            scheduler.shutdown();
-        }
+    public void start(String userId) {
+        UserSimulation userSim = getOrCreateSimulation(userId);
+        userSim.isRunning = true;
     }
 
-    public void reset() {
-        pause();
-        this.simulation = new Simulation();
-        recentEvents.clear();
-        addEvent("reset", "Симуляция сброшена");
+    public void pause(String userId) {
+        UserSimulation userSim = getOrCreateSimulation(userId);
+        userSim.isRunning = false;
     }
 
-    public void step() {
-        simulation.doMove();
+    public void reset(String userId) {
+        UserSimulation userSim = getOrCreateSimulation(userId);
+        userSim.isRunning = false;
+        userSim.simulation = new Simulation();
+        userSim.recentEvents.clear();
+        addEventToUser(userSim, "reset", "Симуляция сброшена");
+    }
+
+    public void step(String userId) {
+        UserSimulation userSim = getOrCreateSimulation(userId);
+        userSim.simulation.doMove();
         
-        // Получаем события из симуляции
-        List<String> events = simulation.getEatingEvents();
+        List<String> events = userSim.simulation.getEatingEvents();
         for (String event : events) {
-            // Определяем тип события по содержимому
             if (event.contains("умер")) {
-                addEvent("death", event);
+                addEventToUser(userSim, "death", event);
             } else if (event.contains("съел")) {
-                addEvent("eating", event);
+                addEventToUser(userSim, "eating", event);
             } else {
-                addEvent("info", event);
+                addEventToUser(userSim, "info", event);
             }
         }
-        simulation.clearEatingEvents();
+        userSim.simulation.clearEatingEvents();
     }
 
-    public SimulationState getCurrentState() {
-        return buildState();
+    public SimulationState getCurrentState(String userId) {
+        UserSimulation userSim = getOrCreateSimulation(userId);
+        return buildState(userSim);
     }
 
     public ConfigDTO getConfig() {
-        return new ConfigDTO(simulation.getWidth(), simulation.getHeight());
+        return new ConfigDTO(Config.getWidth(), Config.getHeigh());
     }
 
-    private void addEvent(String type, String message) {
-        recentEvents.add(0, new SimulationEvent(type, message));
-        if (recentEvents.size() > MAX_EVENTS) {
-            recentEvents.remove(recentEvents.size() - 1);
+    private void addEventToUser(UserSimulation userSim, String type, String message) {
+        userSim.recentEvents.add(0, new SimulationEvent(type, message));
+        if (userSim.recentEvents.size() > MAX_EVENTS) {
+            userSim.recentEvents.remove(userSim.recentEvents.size() - 1);
         }
     }
 
-    private SimulationState buildState() {
+    private SimulationState buildState(UserSimulation userSim) {
         List<EntityDTO> entities = new ArrayList<>();
 
-        for (Map.Entry<Position, Entity> entry : simulation.getObjsMap().entrySet()) {
+        for (Map.Entry<Position, Entity> entry : userSim.simulation.getObjsMap().entrySet()) {
             Position pos = entry.getKey();
             Entity entity = entry.getValue();
 
@@ -127,6 +161,6 @@ public class SimulationService {
             ));
         }
 
-        return new SimulationState(entities, simulation.getCycle(), new ArrayList<>(recentEvents));
+        return new SimulationState(entities, userSim.simulation.getCycle(), new ArrayList<>(userSim.recentEvents));
     }
 }

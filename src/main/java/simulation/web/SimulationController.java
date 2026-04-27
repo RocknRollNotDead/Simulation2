@@ -3,13 +3,6 @@ package simulation.web;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import simulation.backend.Simulation;
-import simulation.backend.Position;
-import simulation.Entity.Entity;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/simulation")
@@ -19,32 +12,32 @@ public class SimulationController {
     private SimulationService simulationService;
 
     @PostMapping("/start")
-    public ResponseEntity<String> start() {
-        simulationService.start();
+    public ResponseEntity<String> start(@RequestParam String userId) {
+        simulationService.start(userId);
         return ResponseEntity.ok("Started");
     }
 
     @PostMapping("/pause")
-    public ResponseEntity<String> pause() {
-        simulationService.pause();
+    public ResponseEntity<String> pause(@RequestParam String userId) {
+        simulationService.pause(userId);
         return ResponseEntity.ok("Paused");
     }
 
     @PostMapping("/reset")
-    public ResponseEntity<String> reset() {
-        simulationService.reset();
+    public ResponseEntity<String> reset(@RequestParam String userId) {
+        simulationService.reset(userId);
         return ResponseEntity.ok("Reset");
     }
 
     @PostMapping("/step")
-    public ResponseEntity<String> step() {
-        simulationService.step();
+    public ResponseEntity<String> step(@RequestParam String userId) {
+        simulationService.step(userId);
         return ResponseEntity.ok("Step");
     }
 
     @GetMapping("/state")
-    public SimulationState getState() {
-        return simulationService.getCurrentState();
+    public SimulationState getState(@RequestParam String userId) {
+        return simulationService.getCurrentState(userId);
     }
 
     @GetMapping("/config")
