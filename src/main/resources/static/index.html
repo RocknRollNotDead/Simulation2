@@ -26,15 +26,18 @@
         h1 {
             text-align: center;
             margin-bottom: 20px;
+            font-size: clamp(1.5rem, 5vw, 2rem);
         }
         
         .main-content {
             display: flex;
             gap: 20px;
+            flex-wrap: wrap;
         }
         
         .left-panel {
             flex: 1;
+            min-width: 300px;
         }
         
         .controls {
@@ -45,6 +48,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
         }
         
         .cycle-label {
@@ -52,6 +56,7 @@
             font-weight: bold;
             color: #4CAF50;
             margin-right: auto;
+            min-width: 100px;
         }
         
         button {
@@ -61,6 +66,8 @@
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
         
         button.start { background: #4CAF50; color: white; }
@@ -69,6 +76,7 @@
         button.reset { background: #f44336; color: white; }
         
         button:hover { transform: scale(1.05); }
+        button:active { transform: scale(0.95); }
         
         .status {
             background: #2a2a2a;
@@ -76,10 +84,18 @@
             border-radius: 4px;
             text-align: center;
             margin-bottom: 10px;
+            font-size: 14px;
         }
         
         .status.connected { background: #2e7d32; }
         .status.disconnected { background: #c62828; }
+        
+        .canvas-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
         
         .canvas-container {
             background: #000;
@@ -88,10 +104,13 @@
             position: relative;
             display: inline-block;
             line-height: 0;
+            margin: 0 auto;
         }
         
         #canvas {
             display: block;
+            max-width: 100%;
+            height: auto;
         }
         
         .entity-list {
@@ -101,11 +120,13 @@
             max-height: 600px;
             overflow-y: auto;
             min-width: 300px;
+            flex: 0 0 auto;
         }
         
         .entity-list h3 {
             margin-bottom: 10px;
             color: #4CAF50;
+            font-size: 1.1rem;
         }
         
         .entity-item {
@@ -115,6 +136,94 @@
             border-radius: 4px;
             font-size: 14px;
             border-left: 3px solid #4CAF50;
+            word-wrap: break-word;
+        }
+        
+        /* Мобильные устройства */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .main-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .left-panel {
+                min-width: 100%;
+            }
+            
+            .controls {
+                padding: 10px;
+                gap: 8px;
+            }
+            
+            .cycle-label {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 5px;
+            }
+            
+            button {
+                flex: 1;
+                min-width: calc(50% - 4px);
+                padding: 12px 10px;
+                font-size: 13px;
+            }
+            
+            .canvas-wrapper {
+                border-radius: 8px;
+                background: #000;
+            }
+            
+            .canvas-container {
+                width: 100%;
+            }
+            
+            #canvas {
+                width: 100%;
+                height: auto;
+            }
+            
+            .entity-list {
+                min-width: 100%;
+                max-height: 400px;
+            }
+            
+            .entity-item {
+                font-size: 13px;
+                padding: 6px;
+            }
+        }
+        
+        /* Очень маленькие экраны */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
+            h1 {
+                font-size: 1.2rem;
+            }
+            
+            .controls {
+                padding: 8px;
+            }
+            
+            button {
+                padding: 10px 8px;
+                font-size: 12px;
+            }
+            
+            .entity-list {
+                max-height: 300px;
+            }
         }
     </style>
 </head>
@@ -134,8 +243,10 @@
                     <button class="reset" onclick="resetSimulation()">Сброс</button>
                 </div>
                 
-                <div class="canvas-container">
-                    <canvas id="canvas"></canvas>
+                <div class="canvas-wrapper">
+                    <div class="canvas-container">
+                        <canvas id="canvas"></canvas>
+                    </div>
                 </div>
             </div>
             
