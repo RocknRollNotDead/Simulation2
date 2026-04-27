@@ -18,7 +18,7 @@ public abstract class Animals extends Entity{
     private static final int COUNT_LIFES_FROM_EAT = 5;
 
 
-
+    protected Simulation simulation;
     private int lifes = getCountLifesFirstTime();
     private boolean isDead;
 
@@ -31,7 +31,7 @@ public abstract class Animals extends Entity{
 
     @Override
     public Position doMove(Simulation simulation) {
-
+        this.simulation = simulation;
         Position newPosition = searchMove(simulation);
 
 

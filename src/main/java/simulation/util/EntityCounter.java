@@ -9,6 +9,7 @@ public class EntityCounter {
     private final Map<Class<?>, Integer> levelsOutMap = new HashMap<>();
     private final Map<Class<?>, Integer> maxCountMap = new HashMap<>();
     private final Map<Class<?>, Integer> maxLevelsOut = new HashMap<>();
+    private final Map<Class<?>, Integer> countIds = new HashMap<>();
 
     public int getCount(Class<?> clazz) {
         return countMap.getOrDefault(clazz, 0);
@@ -26,6 +27,10 @@ public class EntityCounter {
         return maxLevelsOut.getOrDefault(clazz, 0);
     }
 
+    public int getId(Class<?> clazz){
+        return countIds.get(clazz);
+    }
+
     public void setMaxCount(Class<?> clazz, int maxCount) {
         maxCountMap.put(clazz, maxCount);
     }
@@ -40,6 +45,10 @@ public class EntityCounter {
 
     public void incLevelsOut(Class<?> clazz) {
         levelsOutMap.put(clazz, getLevelsOut(clazz) + 1);
+    }
+
+    public void incId(Class<?> clazz) {
+        countIds.put(clazz, getId(clazz) + 1);
     }
 
     public void clearLevels(Class<?> clazz) {

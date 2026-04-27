@@ -182,17 +182,21 @@ public class Simulation {
     }
     
     public void addEatingEvent(Entity eater, Entity eaten){
-        String event = eater.toString() + " съел " + eaten.toString();
+        String event = eater.getSymbol() + " eat " + eaten.getSymbol();
         eatingEvents.add(event);
         log.info(event);
     }
     
     public void addDeathEvent(Entity entity){
-        String event = entity.toString() + " умер";
+        String event = entity.toString() + " DEAD!X!X!";
         eatingEvents.add(event);
         log.info(event);
     }
-    
+
+    public EntityCounter getCounter(){
+        return counter;
+    }
+
     public List<String> getEatingEvents(){
         return new ArrayList<>(eatingEvents);
     }
