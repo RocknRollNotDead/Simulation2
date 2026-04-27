@@ -66,7 +66,7 @@ public abstract class Animals extends Entity{
         Set<Position> setPos = calculateFreePositions(simulation, position);
 
         Position dangPos = searchDanger(position, simulation.getObjsMap());
-        Position eatPos = searchEat(position, simulation.getObjsMap());
+        Position eatPos = searchEat(position, simulation.getNewObjsMap());
         int countLifesToDeadWithSimultaneousVisionDangerousAndEat = 5;
 
         if (dangPos != null) {

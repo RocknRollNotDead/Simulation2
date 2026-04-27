@@ -86,14 +86,6 @@ public class Simulation {
 //                log.info("res remove {} {}", resRemove, entity);
                 eatingList.remove(entity);
             }
-
-            /*if (objsMap.get(position) != newObjsMap.get(position) && objsMap.get(position) != null){
-                addInSetForEating(objsMap.get(position));
-                log.info(entity.getSymbol() + " eat " + objsMap.get(position).getSymbol() + " "
-                        + entity.getPosition().getX() + " " + entity.getPosition().getY());
-            }*/
-
-
         }
         objsMap = new HashMap<>(newObjsMap);
 
