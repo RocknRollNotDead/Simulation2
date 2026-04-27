@@ -15,7 +15,6 @@ public class Creator {
 
 
     public Creator(EntityCounter counter, int width, int heigh){
-//        this.objects = objects;
         this.counter = counter;
         this.width = width;
         this.heigh = heigh;
