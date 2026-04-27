@@ -11,10 +11,6 @@ public class Hare extends PeacefulAnimal{
         super(x, y);
     }
 
-    @Override
-    protected boolean isEntityEdible(Entity entity) {
-        return entity instanceof Edible;
-    }
 
     @Override
     protected int getCountLifesFirstTime() {

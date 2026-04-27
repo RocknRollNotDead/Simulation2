@@ -197,6 +197,11 @@ public class Simulation {
         return counter;
     }
 
+    public void incIdToCounter(Class<?> clazz){
+        counter.incId(clazz);
+    }
+
+
     public List<String> getEatingEvents(){
         return new ArrayList<>(eatingEvents);
     }

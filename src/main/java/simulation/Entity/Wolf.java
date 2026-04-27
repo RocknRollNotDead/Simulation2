@@ -14,10 +14,6 @@ public class Wolf extends Predator{
 
 
 
-    @Override
-    protected boolean isEntityEdible(Entity entity) {
-        return entity instanceof PeacefulAnimal;
-    }
 
     @Override
     protected int getCountLifesFirstTime() {

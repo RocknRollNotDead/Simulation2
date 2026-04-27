@@ -64,5 +64,6 @@ public class EntityCounter {
         setMaxCount(clazz, Config.getMaxElements(clazz));
         setMaxLevelsOut(clazz, Config.getMaxLevelsOut(clazz));
         levelsOutMap.put(clazz, getMaxLevelsOut(clazz));
+        countIds.put(clazz.getSuperclass(), 0);
     }
 }

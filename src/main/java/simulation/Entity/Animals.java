@@ -17,8 +17,8 @@ public abstract class Animals extends Entity{
     private static final Randomizer random = new Randomizer();
     private static final int COUNT_LIFES_FROM_EAT = 5;
 
-
-    protected Simulation simulation;
+    private int id;     // в идеале по-другому сделать - указать в конструкторе Animals ещё и counter в качестве параметра -> (читать далее)            а также использовать отдельный класс для создания объектов, тогда можно будет сделать это поле final, но у меня есть как есть, и я слишком много времени потратил на этот проект, чтобы на столько доводить его до идеала
+    protected Simulation simulation = null;
     private int lifes = getCountLifesFirstTime();
     private boolean isDead;
 
@@ -31,7 +31,12 @@ public abstract class Animals extends Entity{
 
     @Override
     public Position doMove(Simulation simulation) {
-        this.simulation = simulation;
+        if(this.simulation == null){
+            this.simulation = simulation;
+            this.simulation.incIdToCounter(this.getClass().getSuperclass());
+            id = simulation.getCounter().getId(this.getClass().getSuperclass());
+        }
+
         Position newPosition = searchMove(simulation);
 
 
@@ -244,6 +249,8 @@ public abstract class Animals extends Entity{
 
     protected abstract int getMaxCountLifes();
 
-    protected abstract int getId();
+    protected  int getId(){
+        return this.id;
+    }
 
 }
