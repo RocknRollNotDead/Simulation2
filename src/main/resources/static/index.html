@@ -354,6 +354,10 @@
                 const symbol = decodeSymbol(this.data.symbol);
                 ctx.fillText(symbol, 0, 0);
                 ctx.restore();
+                
+                // Явно сбрасываем все параметры
+                ctx.globalAlpha = 1.0;
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
             }
         }
         
