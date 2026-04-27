@@ -20,6 +20,7 @@ public class Simulation {
     private final Set<Entity> eatingList = new HashSet<>();
     private final Map<Position, Entity> newObjsMap = new HashMap<>();
     private Map<Position, Entity> objsMap = new HashMap<>();
+
     private final List<String> eatingEvents = new ArrayList<>();
     /**
      * forDelete - туда попадают сущности, которые надо удалить, чтобы удалять их не сразу, а один ход = одно удаление
@@ -30,6 +31,7 @@ public class Simulation {
      * *
      * По objsMap мы иттерируемся, но записываем все объекты в newObsMap, и после итерации тупо записываем
      * newObjsMap в objsMap.    (как раз из-за objsMap = newObjsMap, objsMap не final)
+     * eatingEvents создал ИИ помощник для того, чтобы прописывать события съедения (а также смерти от голода) в веб-версии
      * */
 
 
