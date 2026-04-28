@@ -79,6 +79,7 @@ public abstract class Animals extends Entity{
             newPos = searchPosition(setPos, eatPos);
         }
 
+        // ветка2
         if (newPos == null) {
             return position;
         }
