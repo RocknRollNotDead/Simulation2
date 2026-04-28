@@ -80,6 +80,7 @@ public abstract class Animals extends Entity{
         }
 
         // ветка2
+        // commit2
         if (newPos == null) {
             return position;
         }
