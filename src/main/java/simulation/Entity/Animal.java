@@ -196,7 +196,7 @@ public abstract class Animal extends Entity{
 
     private Position searchPosition(Set<Position> setPos, Position berPos){
         if(berPos != null){
-            return searchNearestPos(setPos, berPos);
+            return searchNearestPosOrNull(setPos, berPos);
         } else {
             return random.getMove(setPos);
         }
@@ -208,7 +208,7 @@ public abstract class Animal extends Entity{
                 Math.abs(pos.y() - targetPos.y()));
     }
 
-    private Position searchNearestPos(Set<Position> setPos, Position targetPos){
+    private Position searchNearestPosOrNull(Set<Position> setPos, Position targetPos){
         if (setPos == null || targetPos == null) {
             return null;
         }
