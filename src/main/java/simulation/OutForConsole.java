@@ -18,7 +18,7 @@ public class OutForConsole {
         for (int i = 0; i < simulation.getHeight(); i++) {
             for (int j = 0; j < simulation.getWidth(); j++) {
                 if (map.get(new Position(j, i))==null){
-                    symbol = " ";
+                    symbol = "  ";
                 }else{
                     symbol = map.get(new Position(j, i)).getSymbol();
                 }

@@ -197,8 +197,9 @@ public class SimulationApp extends Application {
         String color = "#FFFFFF"; // По умолчанию желтый
         if (e instanceof Tree) color = "#00FF00"; // Дерево - зеленый
         else if (e instanceof Iwe) color = "#CCCCCC"; // Ива - светло-серый
-        else if (e instanceof Berries) color = "#FD0000";
-        else if (e instanceof Wolf) color = "#6E7376"; //"#5A5A5A"
+        else if (e instanceof Berries) color = "#00FF00";
+        else if (e instanceof Wolf) color = "#0000FF"; //"#5A5A5A"
+        else if (e instanceof Hare) color = "#5A5A5A";
 
         // Устанавливаем стиль: размер шрифта 24px, цвет текста
         node.setStyle("-fx-font-size:24px; -fx-text-fill:" + color + ";");
@@ -233,7 +234,7 @@ public class SimulationApp extends Application {
                 // + (CELL_SIZE - node.getWidth()) / 2 - смещение для центрирования
                 // Но так как ширина Label еще не вычислена, используем фиксированное смещение
                 // Для символа размером 24px смещение примерно 8 пикселей
-                node.relocate(pos.getX() * CELL_SIZE + 8, pos.getY() * CELL_SIZE + 8);
+                node.relocate(pos.x() * CELL_SIZE + 8, pos.y() * CELL_SIZE + 8);
 
                 // Анимация появления: плавное увеличение прозрачности от 0 до 1
                 node.setOpacity(0); // Начальная прозрачность 0 (невидимый)
@@ -246,7 +247,7 @@ public class SimulationApp extends Application {
             Position old = previousPositions.get(e); // Получаем предыдущую позицию
             if (old != null && !old.equals(pos)) { // Если позиция изменилась
                 // Устанавливаем начальную позицию для анимации
-                node.relocate(old.getX() * CELL_SIZE + 8, old.getY() * CELL_SIZE + 8);
+                node.relocate(old.x() * CELL_SIZE + 8, old.y() * CELL_SIZE + 8);
 
                 // Сбрасываем смещение (translate) на 0
                 node.setTranslateX(0);
@@ -257,12 +258,12 @@ public class SimulationApp extends Application {
                 
                 // Вычисляем смещение для перемещения
                 // (pos.getX() - old.getX()) * CELL_SIZE - смещение по X в пикселях
-                tt.setToX((pos.getX() - old.getX()) * CELL_SIZE);
-                tt.setToY((pos.getY() - old.getY()) * CELL_SIZE);
+                tt.setToX((pos.x() - old.x()) * CELL_SIZE);
+                tt.setToY((pos.y() - old.y()) * CELL_SIZE);
 
                 // После завершения анимации обновляем реальную позицию Label
-                double targetX = pos.getX() * CELL_SIZE + 8;
-                double targetY = pos.getY() * CELL_SIZE + 8;
+                double targetX = pos.x() * CELL_SIZE + 8;
+                double targetY = pos.y() * CELL_SIZE + 8;
                 Label finalNode = node;
                 tt.setOnFinished(ev -> {
                     // Сбрасываем смещение

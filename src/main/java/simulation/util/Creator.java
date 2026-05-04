@@ -36,7 +36,7 @@ public class Creator {
                 try {
                     entity = clazz.getDeclaredConstructor(int.class, int.class).newInstance(x, y);
                     log.info("object was created: "/* + clazz.getSimpleName()*/ + entity.getSymbol() + " " +
-                            entity.getPosition().getX() + " " + entity.getPosition().getY() + " count "
+                            entity.getPosition().x() + " " + entity.getPosition().y() + " count "
                             + counter.getCount(clazz) + "  maxCount " + counter.getMaxCount(clazz));
                 } catch (Exception e){
                     log.debug("object not was created: " + clazz.getSimpleName());

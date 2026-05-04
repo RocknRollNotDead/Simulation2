@@ -4,7 +4,7 @@ import simulation.backend.Position;
 import simulation.backend.Simulation;
 
 public class Wolf extends Predator{
-    public static final String symbol = "🐺"; // 🐺 "\uD83D\uDC3A"
+    public static final String symbol = "\uD83D\uDC6E\u200D♂\uFE0F"; // 🐺 "\uD83D\uDC3A" 👮‍♂️
     private static final int COUNT_LIFES_FIRST_TIME = 50;
     private static final int MAX_COUNT_LIFES = COUNT_LIFES_FIRST_TIME + 20;
 

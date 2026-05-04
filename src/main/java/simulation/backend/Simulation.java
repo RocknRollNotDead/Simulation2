@@ -17,7 +17,7 @@ public class Simulation {
     private final Queue<Entity> forDelete = new LinkedList<>();
     private final EntityCounter counter = new EntityCounter();
     private final List<Class<? extends Entity>> types = new ArrayList<>();
-    private final Set<Entity> eatingList = new HashSet<>();
+    private final Set<Entity> eatingSet = new HashSet<>();
     private final Map<Position, Entity> newObjsMap = new HashMap<>();
     private Map<Position, Entity> objsMap = new HashMap<>();
 
@@ -26,7 +26,7 @@ public class Simulation {
      * forDelete - туда попадают сущности, которые надо удалить, чтобы удалять их не сразу, а один ход = одно удаление
      * у каждого класса
      * Счётчик следит за тем, сколько сущностей конкретного класса
-     * eatingList - лист тех, кого сьедают. Управляется из классов <? наслед Animals>
+     * eatingSet - лист тех, кого сьедают. Управляется из классов <? наслед Animals>
      * objsMap хранит основную полноценную карту обьектов.
      * *
      * По objsMap мы иттерируемся, но записываем все объекты в newObsMap, и после итерации тупо записываем
@@ -79,17 +79,17 @@ public class Simulation {
             position = entity.doMove(this);
             entity.setPosition(position);
 
-            if (!eatingList.contains(entity)) {
+            if (!eatingSet.contains(entity)) {
                 newObjsMap.put(position, entity);
             } else {
                 boolean resRemove = deletingEntFromMap(entity, newObjsMap);
 //                log.info("res remove {} {}", resRemove, entity);
-                eatingList.remove(entity);
+                eatingSet.remove(entity);
             }
         }
         objsMap = new HashMap<>(newObjsMap);
 
-        //log.info("Map {}  eatlist {}", newObjsMap.values(), eatingList);
+        //log.info("Map {}  eatlist {}", newObjsMap.values(), eatingSet);
 
         this.cycle++;
         createEnts();
@@ -147,11 +147,11 @@ public class Simulation {
 
     private boolean deleteLostInEatingList(){
         boolean result = false;
-        for(Entity entity : eatingList){
+        for(Entity entity : eatingSet){
             counter.decrementCount(entity.getClass());
             result = true;
         }
-        eatingList.clear();
+        eatingSet.clear();
         return result;
     }
 
@@ -165,14 +165,14 @@ public class Simulation {
     }
 
     public boolean isPosExist(Position position){
-        int x = position.getX();
-        int y = position.getY();
+        int x = position.x();
+        int y = position.y();
 
         return x >= 0 && x < width && y >= 0 && y < height;
     }
 
     public void addInSetForEating(Entity entity){
-        this.eatingList.add(entity);
+        this.eatingSet.add(entity);
     }
     
     public void addEatingEvent(Entity eater, Entity eaten){
@@ -193,15 +193,6 @@ public class Simulation {
 
     public void incIdToCounter(Class<?> clazz){
         counter.incId(clazz);
-    }
-
-
-    public List<String> getEatingEvents(){
-        return new ArrayList<>(eatingEvents);
-    }
-    
-    public void clearEatingEvents(){
-        eatingEvents.clear();
     }
     
     public void addInQueueDel(Entity entity){

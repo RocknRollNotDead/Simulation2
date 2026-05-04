@@ -67,7 +67,7 @@ public abstract class Animals extends Entity{
 
         Position dangPos = searchDanger(position, simulation.getObjsMap());
         Position eatPos = searchEat(position, simulation.getNewObjsMap());
-        int countLifesToDeadWithSimultaneousVisionDangerousAndEat = 5;
+        int countLifesToDeadWithSimultaneousVisionDangerousAndEat = 20;
 
         if (dangPos != null) {
             if (lifes > countLifesToDeadWithSimultaneousVisionDangerousAndEat){
@@ -92,13 +92,13 @@ public abstract class Animals extends Entity{
     private Position searchDanger(Position position, Map<Position, Entity> objsMap) {
 
         return objsMap.entrySet().stream()
-                .filter(e-> Math.abs(e.getKey().getX() - position.getX()) <= 2 &&
-                        Math.abs(e.getKey().getY() - position.getY()) <= 2)
+                .filter(e-> Math.abs(e.getKey().x() - position.x()) <= 2 &&
+                        Math.abs(e.getKey().y() - position.y()) <= 2)
                 .filter(e ->  isEntityCanEatMe(e.getValue()))
                 .min(Comparator.comparingInt(e ->
                         Math.max(
-                                Math.abs(e.getKey().getX() - position.getX()),
-                                Math.abs(e.getKey().getY() - position.getY()))
+                                Math.abs(e.getKey().x() - position.x()),
+                                Math.abs(e.getKey().y() - position.y()))
                 ))
                 .map(Map.Entry::getKey)
                 .orElse(null);
@@ -110,8 +110,8 @@ public abstract class Animals extends Entity{
                 .max(Comparator
                         .comparingInt((Position pos) ->
                                 Math.max(
-                                        Math.abs(predPos.getX() - pos.getX()),
-                                        Math.abs(predPos.getY() - pos.getY())
+                                        Math.abs(predPos.x() - pos.x()),
+                                        Math.abs(predPos.y() - pos.y())
                                 ))
                         .thenComparingInt(pos -> isEntityEdible(simulation.getNewObjsMap().get(pos)) ? 1 : 0)
                 )
@@ -123,8 +123,8 @@ public abstract class Animals extends Entity{
                 .max(Comparator
                         .comparingInt((Position pos) ->
                                 Math.max(
-                                        Math.abs(predPos.getX() - pos.getX()), // расстояние Чебышёва
-                                        Math.abs(predPos.getY() - pos.getY())
+                                        Math.abs(predPos.x() - pos.x()), // расстояние Чебышёва
+                                        Math.abs(predPos.y() - pos.y())
                                 ))
                         .thenComparingInt(pos -> eatPos != null ? getCountMovesFromPos1toPos2(pos, eatPos) : 0)
                 )
@@ -138,8 +138,8 @@ public abstract class Animals extends Entity{
                 .filter(e ->  isEntityEdible(e.getValue()))
                 .min(Comparator.comparingInt(e ->
                         Math.max(
-                                Math.abs(e.getKey().getX() - animPos.getX()),
-                                Math.abs(e.getKey().getY() - animPos.getY()))
+                                Math.abs(e.getKey().x() - animPos.x()),
+                                Math.abs(e.getKey().y() - animPos.y()))
                 ))
                 .map(Map.Entry::getKey)
                 .orElse(null);
@@ -148,7 +148,7 @@ public abstract class Animals extends Entity{
     private void eating(Simulation simulation, Entity entity){
         simulation.addInSetForEating(entity);
         simulation.addEatingEvent(this, entity);
-        log.trace("eating  " + entity.getPosition().getX() + " " + entity.getPosition().getY());
+        log.trace("eating  " + entity.getPosition().x() + " " + entity.getPosition().y());
         if (lifes < getMaxCountLifes()){
             lifes = lifes + COUNT_LIFES_FROM_EAT;
         }
@@ -180,8 +180,8 @@ public abstract class Animals extends Entity{
     private Set<Position> calculateFreePositions(Simulation simulation, Position position){
         Set<Position> setPos = new LinkedHashSet<>();
 
-        int x = position.getX();
-        int y = position.getY();
+        int x = position.x();
+        int y = position.y();
 
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
@@ -206,8 +206,8 @@ public abstract class Animals extends Entity{
 
     private int getCountMovesFromPos1toPos2(Position pos, Position targetPos){
         return Math.max(
-                Math.abs(pos.getX() - targetPos.getX()), // Расстояние Чебышёва
-                Math.abs(pos.getY() - targetPos.getY()));
+                Math.abs(pos.x() - targetPos.x()), // Расстояние Чебышёва
+                Math.abs(pos.y() - targetPos.y()));
     }
 
     private Position searchNearestPos(Set<Position> setPos, Position targetPos){
@@ -219,12 +219,12 @@ public abstract class Animals extends Entity{
                 .min(Comparator
                         .comparingInt((Position pos) ->
                                 Math.max(
-                                        Math.abs(targetPos.getX() - pos.getX()),
-                                        Math.abs(targetPos.getY() - pos.getY())
+                                        Math.abs(targetPos.x() - pos.x()),
+                                        Math.abs(targetPos.y() - pos.y())
                                 ))
                         .thenComparingInt(pos -> Math.min(
-                                Math.abs(targetPos.getX() - pos.getX()),
-                                Math.abs(targetPos.getY() - pos.getY())
+                                Math.abs(targetPos.x() - pos.x()),
+                                Math.abs(targetPos.y() - pos.y())
                         ))
 
                 )
