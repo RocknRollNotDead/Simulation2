@@ -62,20 +62,20 @@ public abstract class Animal extends Entity{
     protected Position searchMove(Simulation simulation) {
         Position newPos;
         Position position = getPosition();
-        Set<Position> setPos = calculateFreePositions(simulation, position);
+        Set<Position> freePositions = calculateFreePositions(simulation, position);
 
         Position dangPos = searchDanger(position, simulation.getObjsMap());
         Position eatPos = searchEat(position, simulation.getNewObjsMap());
-        int countLifesToDeadWithSimultaneousVisionDangerousAndEat = 20;
+        int countLifesToDeadWithSimultaneousVisionDangerousAndEat = 30;
 
         if (dangPos != null) {
             if (lifes > countLifesToDeadWithSimultaneousVisionDangerousAndEat){
-                newPos = leavingFromDanger(setPos, dangPos, simulation);
+                newPos = leavingFromDanger(freePositions, dangPos, simulation);
             } else {
-                newPos = leavingFromDangerAndSearchEat(setPos, dangPos, eatPos);
+                newPos = leavingFromDangerAndSearchEat(freePositions, dangPos, eatPos);
             }
         } else {
-            newPos = searchPosition(setPos, eatPos);
+            newPos = searchPosition(freePositions, eatPos);
         }
 
         // ветка2

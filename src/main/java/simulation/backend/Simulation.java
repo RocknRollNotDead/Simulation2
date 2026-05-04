@@ -19,6 +19,7 @@ public class Simulation {
     private final Set<Entity> entitiesWhichWasEated = new HashSet<>();
     private final Map<Position, Entity> newObjsMap = new HashMap<>();
     private Map<Position, Entity> objsMap = new HashMap<>();
+    private final EntityMap entities;
 
     /**
      * forDelete - туда попадают сущности, которые надо удалить, чтобы удалять их не сразу, а один ход = одно удаление
@@ -50,10 +51,11 @@ public class Simulation {
         }
     }
 
-    public Simulation(int width, int heigh){
+    public Simulation(int width, int height){
         this.width = width;
-        this.height = heigh;
-        this.entityFactory = new EntityFactory(counter, width, heigh);
+        this.height = height;
+        this.entityFactory = new EntityFactory(counter, width, height);
+        this.entities = new EntityMap(width, height);
     }
 
     public void doMove(){
