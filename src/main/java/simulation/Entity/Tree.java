@@ -1,8 +1,6 @@
 package simulation.Entity;
 
-import simulation.util.Config;
-import simulation.backend.Position;
-import simulation.backend.Simulation;
+import simulation.other.Config;
 
 public class Tree extends EnvironmentObject{
 

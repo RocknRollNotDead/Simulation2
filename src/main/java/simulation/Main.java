@@ -1,17 +1,18 @@
-package simulation.backend;
+package simulation;
 
-import simulation.OutForConsole;
+import simulation.backend.Simulation;
+import simulation.other.Config;
 
 public class Main {
     private static final long STEP_DELAY_MS = 500;
 
     public static void main(String[] args) {
 
-        Simulation simulation = new Simulation();
-
+        Simulation simulation = new Simulation(Config.getWidth(), Config.getHeigh());
+        OutForConsole renderer = new OutForConsole();
         while (true){
             simulation.doMove();
-            OutForConsole.print(simulation);
+            renderer.print(simulation);
 
             try {
                 Thread.sleep(STEP_DELAY_MS);

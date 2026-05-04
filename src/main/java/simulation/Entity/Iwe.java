@@ -1,17 +1,12 @@
 package simulation.Entity;
 
-import simulation.backend.Position;
-import simulation.backend.Simulation;
-import simulation.util.Config;
+import simulation.other.Config;
 
 public class Iwe extends EnvironmentObject {
 
     public static final int MAX_LEVEL_LIFE = Config.getMaxLevel(Iwe.class);
 
-    private static final String reset = "\u001B[39m"; // сброс только буквы
-    private static final String gray = "\u001B[97m";
-
-    public static final String symbol =  "⦿";//gray + + reset;
+    public static final String symbol =  "⦿";
 
     public Iwe(int x, int y) {
         super(x, y);

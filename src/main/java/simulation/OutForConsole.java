@@ -8,10 +8,14 @@ import java.util.Map;
 
 public class OutForConsole {
 
-    public static final String reset = "\u001B[0m";
-    public static final String colorFon = "\u001B[40m";
+    public static final String resetColor = "\u001B[0m";
+    public static final String backgroundColor = "\u001B[40m";
 
-    public static void print(Simulation simulation) {
+    public OutForConsole (){
+
+    }
+
+    public void print(Simulation simulation) {
         Map<Position, Entity> map = simulation.getObjsMap();
         System.out.println("Цикл " + simulation.getCycle());
         String symbol;
@@ -23,9 +27,9 @@ public class OutForConsole {
                     symbol = map.get(new Position(j, i)).getSymbol();
                 }
 
-                System.out.printf("%s|%s|", colorFon, symbol);
+                System.out.printf("%s|%s|", backgroundColor, symbol);
             }
-            System.out.println(reset);
+            System.out.println(resetColor);
         }
         System.out.println();
     }

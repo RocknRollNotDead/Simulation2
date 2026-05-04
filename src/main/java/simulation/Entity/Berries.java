@@ -1,10 +1,10 @@
 package simulation.Entity;
 
-import simulation.util.Config;
+import simulation.other.Config;
 
 public class Berries extends Edible{
     public static final int MAX_LEVEL_LIFE = Config.getMaxLevel(Berries.class);
-    private static final String SYMBOL = "\uD83C\uDF3F";//🍒 Я хотел чернику, но он чернику показывает как 🫐
+    private static final String SYMBOL = "\uD83D\uDEAC";//🍒 Я хотел чернику, но он чернику показывает как 🫐
 
     public Berries(int x, int y) {
         super(x, y);

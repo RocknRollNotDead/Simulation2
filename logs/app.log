@@ -1,459 +1,161 @@
-2026-05-04 15:09:57 [JavaFX Application Thread] INFO  - object was created: ⦿ 4 4 count 0  maxCount 2
-2026-05-04 15:09:57 [JavaFX Application Thread] INFO  - object was created: 🌳 5 9 count 0  maxCount 2
-2026-05-04 15:09:57 [JavaFX Application Thread] INFO  - object was created: 🙎‍♂️ 14 4 count 0  maxCount 2
-2026-05-04 15:09:57 [JavaFX Application Thread] INFO  - object was created: 👮‍♂️ 14 2 count 0  maxCount 1
-2026-05-04 15:09:57 [JavaFX Application Thread] INFO  - object was created: 🌿 5 1 count 0  maxCount 3
-2026-05-04 15:09:57 [JavaFX Application Thread] INFO  - cycle 1
-2026-05-04 15:09:58 [JavaFX Application Thread] TRACE -  Hare1 13 5  lifes: 29
-2026-05-04 15:09:58 [JavaFX Application Thread] TRACE -  Wolf1 13 3  lifes: 49
-2026-05-04 15:09:58 [JavaFX Application Thread] INFO  - object was created: ⦿ 0 8 count 1  maxCount 2
-2026-05-04 15:09:58 [JavaFX Application Thread] INFO  - object was created: 🌳 4 2 count 1  maxCount 2
-2026-05-04 15:09:58 [JavaFX Application Thread] INFO  - object was created: 🙎‍♂️ 11 6 count 1  maxCount 2
-2026-05-04 15:09:58 [JavaFX Application Thread] INFO  - object was created: 🌿 10 8 count 1  maxCount 3
-2026-05-04 15:09:58 [JavaFX Application Thread] INFO  - cycle 2
-2026-05-04 15:09:59 [JavaFX Application Thread] TRACE -  Hare1 12 6  lifes: 28
-2026-05-04 15:09:59 [JavaFX Application Thread] TRACE -  Hare2 10 7  lifes: 29
-2026-05-04 15:09:59 [JavaFX Application Thread] TRACE -  Wolf1 12 4  lifes: 48
-2026-05-04 15:09:59 [JavaFX Application Thread] INFO  - object was created: 🌿 11 2 count 2  maxCount 3
-2026-05-04 15:09:59 [JavaFX Application Thread] INFO  - cycle 3
-2026-05-04 15:10:00 [JavaFX Application Thread] TRACE -  Hare1 11 7  lifes: 27
-2026-05-04 15:10:00 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:00 [JavaFX Application Thread] TRACE - eating  10 8
-2026-05-04 15:10:00 [JavaFX Application Thread] TRACE -  Hare2 10 8  lifes: 33
-2026-05-04 15:10:00 [JavaFX Application Thread] TRACE -  Wolf1 11 5  lifes: 47
-2026-05-04 15:10:00 [JavaFX Application Thread] INFO  - cycle 4
-2026-05-04 15:10:00 [JavaFX Application Thread] TRACE -  Hare1 10 8  lifes: 26
-2026-05-04 15:10:00 [JavaFX Application Thread] TRACE -  Hare2 11 7  lifes: 32
-2026-05-04 15:10:00 [JavaFX Application Thread] TRACE -  Wolf1 11 6  lifes: 46
-2026-05-04 15:10:00 [JavaFX Application Thread] INFO  - cycle 5
-2026-05-04 15:10:01 [JavaFX Application Thread] TRACE -  Hare2 10 8  lifes: 31
-2026-05-04 15:10:01 [JavaFX Application Thread] TRACE -  Hare1 9 9  lifes: 25
-2026-05-04 15:10:01 [JavaFX Application Thread] TRACE -  Wolf1 10 7  lifes: 45
-2026-05-04 15:10:01 [JavaFX Application Thread] INFO  - cycle 6
-2026-05-04 15:10:02 [JavaFX Application Thread] TRACE -  Hare1 8 8  lifes: 24
-2026-05-04 15:10:02 [JavaFX Application Thread] TRACE -  Hare2 9 9  lifes: 30
-2026-05-04 15:10:02 [JavaFX Application Thread] TRACE -  Wolf1 9 8  lifes: 44
-2026-05-04 15:10:02 [JavaFX Application Thread] INFO  - cycle 7
-2026-05-04 15:10:03 [JavaFX Application Thread] TRACE -  Hare1 7 7  lifes: 23
-2026-05-04 15:10:03 [JavaFX Application Thread] TRACE -  Hare2 8 8  lifes: 29
-2026-05-04 15:10:03 [JavaFX Application Thread] INFO  - 👮‍♂️ eat 🙎‍♂️
-2026-05-04 15:10:03 [JavaFX Application Thread] TRACE - eating  8 8
-2026-05-04 15:10:03 [JavaFX Application Thread] TRACE -  Wolf1 8 8  lifes: 48
-2026-05-04 15:10:03 [JavaFX Application Thread] INFO  - cycle 8
-2026-05-04 15:10:12 [JavaFX Application Thread] TRACE -  Hare1 6 6  lifes: 22
-2026-05-04 15:10:12 [JavaFX Application Thread] TRACE -  Wolf1 7 7  lifes: 47
-2026-05-04 15:10:12 [JavaFX Application Thread] INFO  - cycle 9
-2026-05-04 15:10:13 [JavaFX Application Thread] TRACE -  Hare1 5 5  lifes: 21
-2026-05-04 15:10:13 [JavaFX Application Thread] TRACE -  Wolf1 6 6  lifes: 46
-2026-05-04 15:10:13 [JavaFX Application Thread] INFO  - cycle 10
-2026-05-04 15:10:14 [JavaFX Application Thread] TRACE -  Hare1 5 4  lifes: 20
-2026-05-04 15:10:14 [JavaFX Application Thread] TRACE -  Wolf1 5 5  lifes: 45
-2026-05-04 15:10:14 [JavaFX Application Thread] INFO  - cycle 11
-2026-05-04 15:10:15 [JavaFX Application Thread] TRACE -  Hare1 4 3  lifes: 19
-2026-05-04 15:10:15 [JavaFX Application Thread] TRACE -  Wolf1 5 4  lifes: 44
-2026-05-04 15:10:15 [JavaFX Application Thread] INFO  - cycle 12
-2026-05-04 15:10:15 [JavaFX Application Thread] TRACE -  Hare1 3 4  lifes: 18
-2026-05-04 15:10:15 [JavaFX Application Thread] TRACE -  Wolf1 4 3  lifes: 43
-2026-05-04 15:10:15 [JavaFX Application Thread] INFO  - cycle 13
-2026-05-04 15:10:16 [JavaFX Application Thread] TRACE -  Hare1 2 5  lifes: 17
-2026-05-04 15:10:16 [JavaFX Application Thread] TRACE -  Wolf1 3 4  lifes: 42
-2026-05-04 15:10:16 [JavaFX Application Thread] INFO  - object was created: 🌿 0 0 count 2  maxCount 3
-2026-05-04 15:10:16 [JavaFX Application Thread] INFO  - cycle 14
-2026-05-04 15:10:16 [JavaFX Application Thread] TRACE -  Hare1 1 6  lifes: 16
-2026-05-04 15:10:16 [JavaFX Application Thread] TRACE -  Wolf1 2 5  lifes: 41
-2026-05-04 15:10:16 [JavaFX Application Thread] INFO  - cycle 15
-2026-05-04 15:10:17 [JavaFX Application Thread] TRACE -  Hare1 0 7  lifes: 15
-2026-05-04 15:10:17 [JavaFX Application Thread] TRACE -  Wolf1 1 6  lifes: 40
-2026-05-04 15:10:17 [JavaFX Application Thread] INFO  - object was created: 🙎‍♂️ 14 7 count 1  maxCount 2
-2026-05-04 15:10:17 [JavaFX Application Thread] INFO  - cycle 16
-2026-05-04 15:10:17 [JavaFX Application Thread] TRACE -  Hare1 1 8  lifes: 14
-2026-05-04 15:10:17 [JavaFX Application Thread] TRACE -  Hare3 13 6  lifes: 29
-2026-05-04 15:10:17 [JavaFX Application Thread] TRACE -  Wolf1 1 7  lifes: 39
-2026-05-04 15:10:17 [JavaFX Application Thread] INFO  - cycle 17
-2026-05-04 15:10:18 [JavaFX Application Thread] TRACE -  Hare1 0 9  lifes: 13
-2026-05-04 15:10:18 [JavaFX Application Thread] TRACE -  Hare3 12 5  lifes: 28
-2026-05-04 15:10:18 [JavaFX Application Thread] TRACE -  Wolf1 1 8  lifes: 38
-2026-05-04 15:10:18 [JavaFX Application Thread] INFO  - cycle 18
-2026-05-04 15:10:20 [JavaFX Application Thread] TRACE -  Hare1 1 9  lifes: 12
-2026-05-04 15:10:20 [JavaFX Application Thread] TRACE -  Hare3 11 4  lifes: 27
-2026-05-04 15:10:20 [JavaFX Application Thread] INFO  - 👮‍♂️ eat 🙎‍♂️
-2026-05-04 15:10:20 [JavaFX Application Thread] TRACE - eating  1 9
-2026-05-04 15:10:20 [JavaFX Application Thread] TRACE -  Wolf1 1 9  lifes: 42
-2026-05-04 15:10:20 [JavaFX Application Thread] INFO  - cycle 19
-2026-05-04 15:10:25 [JavaFX Application Thread] TRACE -  Hare3 11 3  lifes: 26
-2026-05-04 15:10:25 [JavaFX Application Thread] TRACE -  Wolf1 2 8  lifes: 41
-2026-05-04 15:10:25 [JavaFX Application Thread] INFO  - cycle 20
-2026-05-04 15:10:27 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:27 [JavaFX Application Thread] TRACE - eating  11 2
-2026-05-04 15:10:27 [JavaFX Application Thread] TRACE -  Hare3 11 2  lifes: 30
-2026-05-04 15:10:27 [JavaFX Application Thread] TRACE -  Wolf1 3 7  lifes: 40
-2026-05-04 15:10:27 [JavaFX Application Thread] INFO  - cycle 21
-2026-05-04 15:10:28 [JavaFX Application Thread] TRACE -  Hare3 10 1  lifes: 29
-2026-05-04 15:10:28 [JavaFX Application Thread] TRACE -  Wolf1 4 6  lifes: 39
-2026-05-04 15:10:28 [JavaFX Application Thread] INFO  - cycle 22
-2026-05-04 15:10:29 [JavaFX Application Thread] TRACE -  Hare3 9 1  lifes: 28
-2026-05-04 15:10:29 [JavaFX Application Thread] TRACE -  Wolf1 5 5  lifes: 38
-2026-05-04 15:10:29 [JavaFX Application Thread] INFO  - cycle 23
-2026-05-04 15:10:29 [JavaFX Application Thread] TRACE -  Hare3 8 1  lifes: 27
-2026-05-04 15:10:29 [JavaFX Application Thread] TRACE -  Wolf1 6 4  lifes: 37
-2026-05-04 15:10:29 [JavaFX Application Thread] INFO  - cycle 24
-2026-05-04 15:10:30 [JavaFX Application Thread] TRACE -  Hare3 7 1  lifes: 26
-2026-05-04 15:10:30 [JavaFX Application Thread] TRACE -  Wolf1 7 3  lifes: 36
-2026-05-04 15:10:30 [JavaFX Application Thread] INFO  - cycle 25
-2026-05-04 15:10:30 [JavaFX Application Thread] TRACE -  Hare3 6 0  lifes: 25
-2026-05-04 15:10:30 [JavaFX Application Thread] TRACE -  Wolf1 6 2  lifes: 35
-2026-05-04 15:10:30 [JavaFX Application Thread] INFO  - cycle 26
-2026-05-04 15:10:31 [JavaFX Application Thread] TRACE -  Hare3 5 0  lifes: 24
-2026-05-04 15:10:31 [JavaFX Application Thread] TRACE -  Wolf1 6 1  lifes: 34
-2026-05-04 15:10:31 [JavaFX Application Thread] INFO  - object was created: 🙎‍♂️ 8 4 count 1  maxCount 2
-2026-05-04 15:10:31 [JavaFX Application Thread] INFO  - cycle 27
-2026-05-04 15:10:32 [JavaFX Application Thread] TRACE -  Hare3 4 0  lifes: 23
-2026-05-04 15:10:32 [JavaFX Application Thread] TRACE -  Hare4 7 3  lifes: 29
-2026-05-04 15:10:32 [JavaFX Application Thread] TRACE -  Wolf1 5 0  lifes: 33
-2026-05-04 15:10:32 [JavaFX Application Thread] INFO  - cycle 28
-2026-05-04 15:10:33 [JavaFX Application Thread] TRACE -  Hare3 3 0  lifes: 22
-2026-05-04 15:10:33 [JavaFX Application Thread] TRACE -  Hare4 6 2  lifes: 28
-2026-05-04 15:10:33 [JavaFX Application Thread] TRACE -  Wolf1 6 1  lifes: 32
-2026-05-04 15:10:33 [JavaFX Application Thread] INFO  - cycle 29
-2026-05-04 15:10:34 [JavaFX Application Thread] TRACE -  Hare4 5 3  lifes: 27
-2026-05-04 15:10:34 [JavaFX Application Thread] TRACE -  Hare3 4 1  lifes: 21
-2026-05-04 15:10:34 [JavaFX Application Thread] TRACE -  Wolf1 5 0  lifes: 31
-2026-05-04 15:10:34 [JavaFX Application Thread] INFO  - cycle 30
-2026-05-04 15:10:35 [JavaFX Application Thread] TRACE -  Hare3 3 0  lifes: 20
-2026-05-04 15:10:35 [JavaFX Application Thread] TRACE -  Hare4 5 2  lifes: 26
-2026-05-04 15:10:35 [JavaFX Application Thread] TRACE -  Wolf1 4 0  lifes: 30
-2026-05-04 15:10:35 [JavaFX Application Thread] INFO  - object was created: 🌿 8 5 count 2  maxCount 3
-2026-05-04 15:10:35 [JavaFX Application Thread] INFO  - cycle 31
-2026-05-04 15:10:36 [JavaFX Application Thread] TRACE -  Hare3 2 0  lifes: 19
-2026-05-04 15:10:36 [JavaFX Application Thread] TRACE -  Hare4 4 3  lifes: 25
-2026-05-04 15:10:36 [JavaFX Application Thread] TRACE -  Wolf1 3 0  lifes: 29
-2026-05-04 15:10:36 [JavaFX Application Thread] INFO  - cycle 32
-2026-05-04 15:10:36 [JavaFX Application Thread] TRACE -  Hare3 1 0  lifes: 18
-2026-05-04 15:10:36 [JavaFX Application Thread] TRACE -  Hare4 5 2  lifes: 24
-2026-05-04 15:10:36 [JavaFX Application Thread] TRACE -  Wolf1 4 1  lifes: 28
-2026-05-04 15:10:36 [JavaFX Application Thread] INFO  - cycle 33
-2026-05-04 15:10:37 [JavaFX Application Thread] TRACE -  Hare4 6 1  lifes: 23
-2026-05-04 15:10:37 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:37 [JavaFX Application Thread] TRACE - eating  0 0
-2026-05-04 15:10:37 [JavaFX Application Thread] TRACE -  Hare3 0 0  lifes: 22
-2026-05-04 15:10:37 [JavaFX Application Thread] TRACE -  Wolf1 5 0  lifes: 27
-2026-05-04 15:10:37 [JavaFX Application Thread] INFO  - cycle 34
-2026-05-04 15:10:38 [JavaFX Application Thread] TRACE -  Hare3 1 1  lifes: 21
-2026-05-04 15:10:38 [JavaFX Application Thread] TRACE -  Hare4 7 0  lifes: 22
-2026-05-04 15:10:38 [JavaFX Application Thread] TRACE -  Wolf1 6 0  lifes: 26
-2026-05-04 15:10:38 [JavaFX Application Thread] INFO  - cycle 35
-2026-05-04 15:10:39 [JavaFX Application Thread] TRACE -  Hare3 2 1  lifes: 20
-2026-05-04 15:10:39 [JavaFX Application Thread] TRACE -  Hare4 8 0  lifes: 21
-2026-05-04 15:10:39 [JavaFX Application Thread] TRACE -  Wolf1 7 0  lifes: 25
-2026-05-04 15:10:39 [JavaFX Application Thread] INFO  - cycle 36
-2026-05-04 15:10:39 [JavaFX Application Thread] TRACE -  Hare4 9 0  lifes: 20
-2026-05-04 15:10:39 [JavaFX Application Thread] TRACE -  Hare3 3 1  lifes: 19
-2026-05-04 15:10:39 [JavaFX Application Thread] TRACE -  Wolf1 8 0  lifes: 24
-2026-05-04 15:10:39 [JavaFX Application Thread] INFO  - cycle 37
-2026-05-04 15:10:39 [JavaFX Application Thread] TRACE -  Hare4 10 0  lifes: 19
-2026-05-04 15:10:39 [JavaFX Application Thread] TRACE -  Hare3 4 1  lifes: 18
-2026-05-04 15:10:39 [JavaFX Application Thread] TRACE -  Wolf1 9 0  lifes: 23
-2026-05-04 15:10:39 [JavaFX Application Thread] INFO  - cycle 38
-2026-05-04 15:10:40 [JavaFX Application Thread] TRACE -  Hare4 11 0  lifes: 18
-2026-05-04 15:10:40 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:40 [JavaFX Application Thread] TRACE - eating  5 1
-2026-05-04 15:10:40 [JavaFX Application Thread] TRACE -  Hare3 5 1  lifes: 22
-2026-05-04 15:10:40 [JavaFX Application Thread] TRACE -  Wolf1 10 0  lifes: 22
-2026-05-04 15:10:40 [JavaFX Application Thread] INFO  - cycle 39
-2026-05-04 15:10:40 [JavaFX Application Thread] TRACE -  Hare4 12 0  lifes: 17
-2026-05-04 15:10:40 [JavaFX Application Thread] TRACE -  Hare3 6 2  lifes: 21
-2026-05-04 15:10:40 [JavaFX Application Thread] TRACE -  Wolf1 11 0  lifes: 21
-2026-05-04 15:10:40 [JavaFX Application Thread] INFO  - cycle 40
-2026-05-04 15:10:41 [JavaFX Application Thread] TRACE -  Hare4 13 0  lifes: 16
-2026-05-04 15:10:41 [JavaFX Application Thread] TRACE -  Hare3 7 3  lifes: 20
-2026-05-04 15:10:41 [JavaFX Application Thread] TRACE -  Wolf1 12 0  lifes: 20
-2026-05-04 15:10:41 [JavaFX Application Thread] INFO  - cycle 41
-2026-05-04 15:10:41 [JavaFX Application Thread] TRACE -  Hare4 14 0  lifes: 15
-2026-05-04 15:10:41 [JavaFX Application Thread] TRACE -  Hare3 8 4  lifes: 19
-2026-05-04 15:10:41 [JavaFX Application Thread] TRACE -  Wolf1 13 0  lifes: 19
-2026-05-04 15:10:41 [JavaFX Application Thread] INFO  - cycle 42
-2026-05-04 15:10:41 [JavaFX Application Thread] TRACE -  Hare4 14 1  lifes: 14
-2026-05-04 15:10:41 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:41 [JavaFX Application Thread] TRACE - eating  8 5
-2026-05-04 15:10:41 [JavaFX Application Thread] TRACE -  Hare3 8 5  lifes: 23
-2026-05-04 15:10:41 [JavaFX Application Thread] INFO  - 👮‍♂️ eat 🙎‍♂️
-2026-05-04 15:10:41 [JavaFX Application Thread] TRACE - eating  14 1
-2026-05-04 15:10:41 [JavaFX Application Thread] TRACE -  Wolf1 14 1  lifes: 23
-2026-05-04 15:10:41 [JavaFX Application Thread] INFO  - cycle 43
-2026-05-04 15:10:42 [JavaFX Application Thread] TRACE -  Hare3 7 4  lifes: 22
-2026-05-04 15:10:42 [JavaFX Application Thread] TRACE -  Wolf1 13 2  lifes: 22
-2026-05-04 15:10:42 [JavaFX Application Thread] INFO  - object was created: 🌿 12 1 count 0  maxCount 3
-2026-05-04 15:10:42 [JavaFX Application Thread] INFO  - cycle 44
-2026-05-04 15:10:42 [JavaFX Application Thread] TRACE -  Hare3 8 3  lifes: 21
-2026-05-04 15:10:42 [JavaFX Application Thread] TRACE -  Wolf1 12 3  lifes: 21
-2026-05-04 15:10:42 [JavaFX Application Thread] INFO  - object was created: 🌿 1 6 count 1  maxCount 3
-2026-05-04 15:10:42 [JavaFX Application Thread] INFO  - cycle 45
-2026-05-04 15:10:43 [JavaFX Application Thread] TRACE -  Hare3 9 2  lifes: 20
-2026-05-04 15:10:43 [JavaFX Application Thread] TRACE -  Wolf1 11 2  lifes: 20
-2026-05-04 15:10:43 [JavaFX Application Thread] INFO  - object was created: 🌿 9 6 count 2  maxCount 3
-2026-05-04 15:10:43 [JavaFX Application Thread] INFO  - cycle 46
-2026-05-04 15:10:43 [JavaFX Application Thread] TRACE -  Hare3 8 1  lifes: 19
-2026-05-04 15:10:43 [JavaFX Application Thread] TRACE -  Wolf1 10 1  lifes: 19
-2026-05-04 15:10:43 [JavaFX Application Thread] INFO  - cycle 47
-2026-05-04 15:10:43 [JavaFX Application Thread] TRACE -  Hare3 7 0  lifes: 18
-2026-05-04 15:10:43 [JavaFX Application Thread] TRACE -  Wolf1 9 0  lifes: 18
-2026-05-04 15:10:43 [JavaFX Application Thread] INFO  - cycle 48
-2026-05-04 15:10:44 [JavaFX Application Thread] TRACE -  Hare3 6 0  lifes: 17
-2026-05-04 15:10:44 [JavaFX Application Thread] TRACE -  Wolf1 8 0  lifes: 17
-2026-05-04 15:10:44 [JavaFX Application Thread] INFO  - cycle 49
-2026-05-04 15:10:44 [JavaFX Application Thread] TRACE -  Hare3 5 0  lifes: 16
-2026-05-04 15:10:44 [JavaFX Application Thread] TRACE -  Wolf1 7 0  lifes: 16
-2026-05-04 15:10:44 [JavaFX Application Thread] INFO  - cycle 50
-2026-05-04 15:10:44 [JavaFX Application Thread] TRACE -  Hare3 4 0  lifes: 15
-2026-05-04 15:10:44 [JavaFX Application Thread] TRACE -  Wolf1 6 0  lifes: 15
-2026-05-04 15:10:44 [JavaFX Application Thread] INFO  - object was created: 🙎‍♂️ 7 3 count 1  maxCount 2
-2026-05-04 15:10:44 [JavaFX Application Thread] INFO  - cycle 51
-2026-05-04 15:10:45 [JavaFX Application Thread] TRACE -  Hare3 3 0  lifes: 14
-2026-05-04 15:10:45 [JavaFX Application Thread] TRACE -  Hare5 8 4  lifes: 29
-2026-05-04 15:10:45 [JavaFX Application Thread] TRACE -  Wolf1 5 0  lifes: 14
-2026-05-04 15:10:45 [JavaFX Application Thread] INFO  - cycle 52
-2026-05-04 15:10:45 [JavaFX Application Thread] TRACE -  Hare5 9 5  lifes: 28
-2026-05-04 15:10:45 [JavaFX Application Thread] TRACE -  Hare3 2 0  lifes: 13
-2026-05-04 15:10:45 [JavaFX Application Thread] TRACE -  Wolf1 4 0  lifes: 13
-2026-05-04 15:10:45 [JavaFX Application Thread] INFO  - cycle 53
-2026-05-04 15:10:45 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:45 [JavaFX Application Thread] TRACE - eating  9 6
-2026-05-04 15:10:45 [JavaFX Application Thread] TRACE -  Hare5 9 6  lifes: 32
-2026-05-04 15:10:45 [JavaFX Application Thread] TRACE -  Hare3 1 0  lifes: 12
-2026-05-04 15:10:45 [JavaFX Application Thread] TRACE -  Wolf1 3 0  lifes: 12
-2026-05-04 15:10:45 [JavaFX Application Thread] INFO  - cycle 54
-2026-05-04 15:10:45 [JavaFX Application Thread] TRACE -  Hare5 10 5  lifes: 31
-2026-05-04 15:10:45 [JavaFX Application Thread] TRACE -  Hare3 0 0  lifes: 11
-2026-05-04 15:10:45 [JavaFX Application Thread] TRACE -  Wolf1 2 0  lifes: 11
-2026-05-04 15:10:45 [JavaFX Application Thread] INFO  - cycle 55
-2026-05-04 15:10:46 [JavaFX Application Thread] TRACE -  Hare3 0 1  lifes: 10
-2026-05-04 15:10:46 [JavaFX Application Thread] TRACE -  Hare5 11 4  lifes: 30
-2026-05-04 15:10:46 [JavaFX Application Thread] TRACE -  Wolf1 1 1  lifes: 10
-2026-05-04 15:10:46 [JavaFX Application Thread] INFO  - cycle 56
-2026-05-04 15:10:46 [JavaFX Application Thread] TRACE -  Hare3 0 0  lifes: 9
-2026-05-04 15:10:46 [JavaFX Application Thread] TRACE -  Hare5 12 3  lifes: 29
-2026-05-04 15:10:46 [JavaFX Application Thread] INFO  - 👮‍♂️ eat 🙎‍♂️
-2026-05-04 15:10:46 [JavaFX Application Thread] TRACE - eating  0 0
-2026-05-04 15:10:46 [JavaFX Application Thread] TRACE -  Wolf1 0 0  lifes: 14
-2026-05-04 15:10:46 [JavaFX Application Thread] INFO  - cycle 57
-2026-05-04 15:10:46 [JavaFX Application Thread] TRACE -  Hare5 12 2  lifes: 28
-2026-05-04 15:10:46 [JavaFX Application Thread] TRACE -  Wolf1 1 1  lifes: 13
-2026-05-04 15:10:46 [JavaFX Application Thread] INFO  - cycle 58
-2026-05-04 15:10:46 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:46 [JavaFX Application Thread] TRACE - eating  12 1
-2026-05-04 15:10:46 [JavaFX Application Thread] TRACE -  Hare5 12 1  lifes: 32
-2026-05-04 15:10:46 [JavaFX Application Thread] TRACE -  Wolf1 2 1  lifes: 12
-2026-05-04 15:10:46 [JavaFX Application Thread] INFO  - cycle 59
-2026-05-04 15:10:47 [JavaFX Application Thread] TRACE -  Hare5 11 2  lifes: 31
-2026-05-04 15:10:47 [JavaFX Application Thread] TRACE -  Wolf1 3 2  lifes: 11
-2026-05-04 15:10:47 [JavaFX Application Thread] INFO  - cycle 60
-2026-05-04 15:10:47 [JavaFX Application Thread] TRACE -  Hare5 10 3  lifes: 30
-2026-05-04 15:10:47 [JavaFX Application Thread] TRACE -  Wolf1 4 3  lifes: 10
-2026-05-04 15:10:47 [JavaFX Application Thread] INFO  - cycle 61
-2026-05-04 15:10:47 [JavaFX Application Thread] TRACE -  Hare5 9 4  lifes: 29
-2026-05-04 15:10:47 [JavaFX Application Thread] TRACE -  Wolf1 5 4  lifes: 9
-2026-05-04 15:10:47 [JavaFX Application Thread] INFO  - cycle 62
-2026-05-04 15:10:47 [JavaFX Application Thread] TRACE -  Hare5 8 5  lifes: 28
-2026-05-04 15:10:47 [JavaFX Application Thread] TRACE -  Wolf1 6 5  lifes: 8
-2026-05-04 15:10:47 [JavaFX Application Thread] INFO  - cycle 63
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE -  Hare5 9 4  lifes: 27
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE -  Wolf1 7 4  lifes: 7
-2026-05-04 15:10:48 [JavaFX Application Thread] INFO  - object was created: 🌿 13 5 count 1  maxCount 3
-2026-05-04 15:10:48 [JavaFX Application Thread] INFO  - cycle 64
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE -  Hare5 10 3  lifes: 26
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE -  Wolf1 8 3  lifes: 6
-2026-05-04 15:10:48 [JavaFX Application Thread] INFO  - object was created: 🙎‍♂️ 13 2 count 1  maxCount 2
-2026-05-04 15:10:48 [JavaFX Application Thread] INFO  - object was created: 🌿 11 2 count 2  maxCount 3
-2026-05-04 15:10:48 [JavaFX Application Thread] INFO  - cycle 65
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE -  Hare6 12 2  lifes: 29
-2026-05-04 15:10:48 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE - eating  11 2
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE -  Hare5 11 2  lifes: 30
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE -  Wolf1 9 2  lifes: 5
-2026-05-04 15:10:48 [JavaFX Application Thread] INFO  - cycle 66
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE -  Hare6 13 3  lifes: 28
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE -  Hare5 12 1  lifes: 29
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE -  Wolf1 10 1  lifes: 4
-2026-05-04 15:10:48 [JavaFX Application Thread] INFO  - cycle 67
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE -  Hare5 13 0  lifes: 28
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE -  Hare6 13 4  lifes: 27
-2026-05-04 15:10:48 [JavaFX Application Thread] TRACE -  Wolf1 11 0  lifes: 3
-2026-05-04 15:10:48 [JavaFX Application Thread] INFO  - cycle 68
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE -  Hare5 14 0  lifes: 27
-2026-05-04 15:10:49 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE - eating  13 5
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE -  Hare6 13 5  lifes: 31
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE -  Wolf1 12 0  lifes: 2
-2026-05-04 15:10:49 [JavaFX Application Thread] INFO  - cycle 69
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE -  Hare5 14 1  lifes: 26
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE -  Hare6 12 6  lifes: 30
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE -  Wolf1 13 1  lifes: 1
-2026-05-04 15:10:49 [JavaFX Application Thread] INFO  - cycle 70
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE -  Hare5 13 0  lifes: 25
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE -  Hare6 11 6  lifes: 29
-2026-05-04 15:10:49 [JavaFX Application Thread] INFO  - 👮‍♂️ eat 🙎‍♂️
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE - eating  13 0
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE -  Wolf1 13 0  lifes: 5
-2026-05-04 15:10:49 [JavaFX Application Thread] INFO  - cycle 71
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE -  Hare6 10 6  lifes: 28
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE -  Wolf1 12 1  lifes: 4
-2026-05-04 15:10:49 [JavaFX Application Thread] INFO  - cycle 72
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE -  Hare6 9 6  lifes: 27
-2026-05-04 15:10:49 [JavaFX Application Thread] TRACE -  Wolf1 11 2  lifes: 3
-2026-05-04 15:10:49 [JavaFX Application Thread] INFO  - cycle 73
-2026-05-04 15:10:50 [JavaFX Application Thread] TRACE -  Hare6 8 6  lifes: 26
-2026-05-04 15:10:50 [JavaFX Application Thread] TRACE -  Wolf1 10 3  lifes: 2
-2026-05-04 15:10:50 [JavaFX Application Thread] INFO  - cycle 74
-2026-05-04 15:10:50 [JavaFX Application Thread] TRACE -  Hare6 7 6  lifes: 25
-2026-05-04 15:10:50 [JavaFX Application Thread] TRACE -  Wolf1 9 4  lifes: 1
-2026-05-04 15:10:50 [JavaFX Application Thread] INFO  - cycle 75
-2026-05-04 15:10:50 [JavaFX Application Thread] TRACE -  Hare6 6 5  lifes: 24
-2026-05-04 15:10:50 [JavaFX Application Thread] INFO  - Wolf1 9 4 DEAD!X!X!
-2026-05-04 15:10:50 [JavaFX Application Thread] INFO  -  Wolf1 DEAD!X!X! 
-2026-05-04 15:10:50 [JavaFX Application Thread] TRACE -  Wolf1 8 5  lifes: 0
-2026-05-04 15:10:50 [JavaFX Application Thread] INFO  - object was created: 🌿 1 7 count 1  maxCount 3
-2026-05-04 15:10:50 [JavaFX Application Thread] INFO  - cycle 76
-2026-05-04 15:10:50 [JavaFX Application Thread] TRACE -  Hare6 5 6  lifes: 23
-2026-05-04 15:10:50 [JavaFX Application Thread] INFO  - object was created: 🌿 1 0 count 2  maxCount 3
-2026-05-04 15:10:50 [JavaFX Application Thread] INFO  - cycle 77
-2026-05-04 15:10:50 [JavaFX Application Thread] TRACE -  Hare6 4 6  lifes: 22
-2026-05-04 15:10:50 [JavaFX Application Thread] INFO  - cycle 78
-2026-05-04 15:10:51 [JavaFX Application Thread] TRACE -  Hare6 3 6  lifes: 21
-2026-05-04 15:10:51 [JavaFX Application Thread] INFO  - object was created: 🙎‍♂️ 13 0 count 1  maxCount 2
-2026-05-04 15:10:51 [JavaFX Application Thread] INFO  - cycle 79
-2026-05-04 15:10:51 [JavaFX Application Thread] TRACE -  Hare6 2 6  lifes: 20
-2026-05-04 15:10:51 [JavaFX Application Thread] TRACE -  Hare7 12 1  lifes: 29
-2026-05-04 15:10:51 [JavaFX Application Thread] INFO  - cycle 80
-2026-05-04 15:10:51 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:51 [JavaFX Application Thread] TRACE - eating  1 6
-2026-05-04 15:10:51 [JavaFX Application Thread] TRACE -  Hare6 1 6  lifes: 24
-2026-05-04 15:10:51 [JavaFX Application Thread] TRACE -  Hare7 11 2  lifes: 28
-2026-05-04 15:10:51 [JavaFX Application Thread] INFO  - cycle 81
-2026-05-04 15:10:52 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:52 [JavaFX Application Thread] TRACE - eating  1 7
-2026-05-04 15:10:52 [JavaFX Application Thread] TRACE -  Hare6 1 7  lifes: 28
-2026-05-04 15:10:52 [JavaFX Application Thread] TRACE -  Hare7 10 1  lifes: 27
-2026-05-04 15:10:52 [JavaFX Application Thread] INFO  - cycle 82
-2026-05-04 15:10:52 [JavaFX Application Thread] TRACE -  Hare6 1 6  lifes: 27
-2026-05-04 15:10:52 [JavaFX Application Thread] TRACE -  Hare7 9 0  lifes: 26
-2026-05-04 15:10:52 [JavaFX Application Thread] INFO  - cycle 83
-2026-05-04 15:10:53 [JavaFX Application Thread] TRACE -  Hare6 1 5  lifes: 26
-2026-05-04 15:10:53 [JavaFX Application Thread] TRACE -  Hare7 8 0  lifes: 25
-2026-05-04 15:10:53 [JavaFX Application Thread] INFO  - cycle 84
-2026-05-04 15:10:53 [JavaFX Application Thread] TRACE -  Hare6 1 4  lifes: 25
-2026-05-04 15:10:53 [JavaFX Application Thread] TRACE -  Hare7 7 0  lifes: 24
-2026-05-04 15:10:53 [JavaFX Application Thread] INFO  - cycle 85
-2026-05-04 15:10:53 [JavaFX Application Thread] TRACE -  Hare6 1 3  lifes: 24
-2026-05-04 15:10:53 [JavaFX Application Thread] TRACE -  Hare7 6 0  lifes: 23
-2026-05-04 15:10:53 [JavaFX Application Thread] INFO  - cycle 86
-2026-05-04 15:10:53 [JavaFX Application Thread] TRACE -  Hare6 1 2  lifes: 23
-2026-05-04 15:10:53 [JavaFX Application Thread] TRACE -  Hare7 5 0  lifes: 22
-2026-05-04 15:10:53 [JavaFX Application Thread] INFO  - object was created: 👮‍♂️ 12 0 count 0  maxCount 1
-2026-05-04 15:10:53 [JavaFX Application Thread] INFO  - cycle 87
-2026-05-04 15:10:53 [JavaFX Application Thread] TRACE -  Hare6 1 1  lifes: 22
-2026-05-04 15:10:53 [JavaFX Application Thread] TRACE -  Hare7 4 0  lifes: 21
-2026-05-04 15:10:53 [JavaFX Application Thread] TRACE -  Wolf2 11 0  lifes: 49
-2026-05-04 15:10:53 [JavaFX Application Thread] INFO  - cycle 88
-2026-05-04 15:10:54 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:54 [JavaFX Application Thread] TRACE - eating  1 0
-2026-05-04 15:10:54 [JavaFX Application Thread] TRACE -  Hare6 1 0  lifes: 26
-2026-05-04 15:10:54 [JavaFX Application Thread] TRACE -  Hare7 4 1  lifes: 20
-2026-05-04 15:10:54 [JavaFX Application Thread] TRACE -  Wolf2 10 1  lifes: 48
-2026-05-04 15:10:54 [JavaFX Application Thread] INFO  - cycle 89
-2026-05-04 15:10:54 [JavaFX Application Thread] TRACE -  Hare7 5 1  lifes: 19
-2026-05-04 15:10:54 [JavaFX Application Thread] TRACE -  Hare6 0 0  lifes: 25
-2026-05-04 15:10:54 [JavaFX Application Thread] TRACE -  Wolf2 9 1  lifes: 47
-2026-05-04 15:10:54 [JavaFX Application Thread] INFO  - cycle 90
-2026-05-04 15:10:54 [JavaFX Application Thread] TRACE -  Hare6 1 1  lifes: 24
-2026-05-04 15:10:54 [JavaFX Application Thread] TRACE -  Hare7 6 0  lifes: 18
-2026-05-04 15:10:54 [JavaFX Application Thread] TRACE -  Wolf2 8 0  lifes: 46
-2026-05-04 15:10:54 [JavaFX Application Thread] INFO  - object was created: 🌿 14 0 count 0  maxCount 3
-2026-05-04 15:10:54 [JavaFX Application Thread] INFO  - cycle 91
-2026-05-04 15:10:54 [JavaFX Application Thread] TRACE -  Hare6 2 0  lifes: 23
-2026-05-04 15:10:54 [JavaFX Application Thread] TRACE -  Hare7 5 0  lifes: 17
-2026-05-04 15:10:54 [JavaFX Application Thread] TRACE -  Wolf2 7 0  lifes: 45
-2026-05-04 15:10:54 [JavaFX Application Thread] INFO  - object was created: 🌿 13 9 count 1  maxCount 3
-2026-05-04 15:10:54 [JavaFX Application Thread] INFO  - cycle 92
-2026-05-04 15:10:55 [JavaFX Application Thread] TRACE -  Hare7 4 0  lifes: 16
-2026-05-04 15:10:55 [JavaFX Application Thread] TRACE -  Hare6 3 1  lifes: 22
-2026-05-04 15:10:55 [JavaFX Application Thread] TRACE -  Wolf2 6 0  lifes: 44
-2026-05-04 15:10:55 [JavaFX Application Thread] INFO  - object was created: 🌿 1 9 count 2  maxCount 3
-2026-05-04 15:10:55 [JavaFX Application Thread] INFO  - cycle 93
-2026-05-04 15:10:55 [JavaFX Application Thread] TRACE -  Hare7 3 0  lifes: 15
-2026-05-04 15:10:55 [JavaFX Application Thread] TRACE -  Hare6 2 2  lifes: 21
-2026-05-04 15:10:55 [JavaFX Application Thread] TRACE -  Wolf2 5 0  lifes: 43
-2026-05-04 15:10:55 [JavaFX Application Thread] INFO  - cycle 94
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Hare6 1 3  lifes: 20
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Hare7 2 0  lifes: 14
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Wolf2 4 0  lifes: 42
-2026-05-04 15:10:56 [JavaFX Application Thread] INFO  - cycle 95
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Hare6 1 4  lifes: 19
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Hare7 1 0  lifes: 13
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Wolf2 3 0  lifes: 41
-2026-05-04 15:10:56 [JavaFX Application Thread] INFO  - cycle 96
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Hare6 1 5  lifes: 18
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Hare7 0 0  lifes: 12
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Wolf2 2 0  lifes: 40
-2026-05-04 15:10:56 [JavaFX Application Thread] INFO  - cycle 97
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Hare7 0 1  lifes: 11
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Hare6 1 6  lifes: 17
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Wolf2 1 1  lifes: 39
-2026-05-04 15:10:56 [JavaFX Application Thread] INFO  - cycle 98
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Hare7 0 0  lifes: 10
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Hare6 1 7  lifes: 16
-2026-05-04 15:10:56 [JavaFX Application Thread] INFO  - 👮‍♂️ eat 🙎‍♂️
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE - eating  0 0
-2026-05-04 15:10:56 [JavaFX Application Thread] TRACE -  Wolf2 0 0  lifes: 43
-2026-05-04 15:10:56 [JavaFX Application Thread] INFO  - cycle 99
-2026-05-04 15:10:57 [JavaFX Application Thread] TRACE -  Hare6 1 8  lifes: 15
-2026-05-04 15:10:57 [JavaFX Application Thread] TRACE -  Wolf2 1 1  lifes: 42
-2026-05-04 15:10:57 [JavaFX Application Thread] INFO  - cycle 100
-2026-05-04 15:10:57 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:57 [JavaFX Application Thread] TRACE - eating  1 9
-2026-05-04 15:10:57 [JavaFX Application Thread] TRACE -  Hare6 1 9  lifes: 19
-2026-05-04 15:10:57 [JavaFX Application Thread] TRACE -  Wolf2 1 2  lifes: 41
-2026-05-04 15:10:57 [JavaFX Application Thread] INFO  - cycle 101
-2026-05-04 15:10:57 [JavaFX Application Thread] TRACE -  Hare6 2 9  lifes: 18
-2026-05-04 15:10:57 [JavaFX Application Thread] TRACE -  Wolf2 2 3  lifes: 40
-2026-05-04 15:10:57 [JavaFX Application Thread] INFO  - cycle 102
-2026-05-04 15:10:57 [JavaFX Application Thread] TRACE -  Hare6 3 9  lifes: 17
-2026-05-04 15:10:57 [JavaFX Application Thread] TRACE -  Wolf2 3 4  lifes: 39
-2026-05-04 15:10:57 [JavaFX Application Thread] INFO  - cycle 103
-2026-05-04 15:10:58 [JavaFX Application Thread] TRACE -  Hare6 4 9  lifes: 16
-2026-05-04 15:10:58 [JavaFX Application Thread] TRACE -  Wolf2 4 5  lifes: 38
-2026-05-04 15:10:58 [JavaFX Application Thread] INFO  - cycle 104
-2026-05-04 15:10:58 [JavaFX Application Thread] TRACE -  Hare6 5 8  lifes: 15
-2026-05-04 15:10:58 [JavaFX Application Thread] TRACE -  Wolf2 5 6  lifes: 37
-2026-05-04 15:10:58 [JavaFX Application Thread] INFO  - cycle 105
-2026-05-04 15:10:58 [JavaFX Application Thread] TRACE -  Hare6 4 9  lifes: 14
-2026-05-04 15:10:58 [JavaFX Application Thread] TRACE -  Wolf2 4 7  lifes: 36
-2026-05-04 15:10:58 [JavaFX Application Thread] INFO  - cycle 106
-2026-05-04 15:10:58 [JavaFX Application Thread] TRACE -  Hare6 3 9  lifes: 13
-2026-05-04 15:10:58 [JavaFX Application Thread] TRACE -  Wolf2 3 8  lifes: 35
-2026-05-04 15:10:58 [JavaFX Application Thread] INFO  - object was created: 🙎‍♂️ 12 0 count 1  maxCount 2
-2026-05-04 15:10:58 [JavaFX Application Thread] INFO  - cycle 107
-2026-05-04 15:10:58 [JavaFX Application Thread] TRACE -  Hare8 13 0  lifes: 29
-2026-05-04 15:10:58 [JavaFX Application Thread] TRACE -  Hare6 2 8  lifes: 12
-2026-05-04 15:10:58 [JavaFX Application Thread] INFO  - 👮‍♂️ eat 🙎‍♂️
-2026-05-04 15:10:58 [JavaFX Application Thread] TRACE - eating  2 8
-2026-05-04 15:10:58 [JavaFX Application Thread] TRACE -  Wolf2 2 8  lifes: 39
-2026-05-04 15:10:58 [JavaFX Application Thread] INFO  - cycle 108
-2026-05-04 15:10:59 [JavaFX Application Thread] INFO  - 🙎‍♂️ eat 🌿
-2026-05-04 15:10:59 [JavaFX Application Thread] TRACE - eating  14 0
-2026-05-04 15:10:59 [JavaFX Application Thread] TRACE -  Hare8 14 0  lifes: 33
-2026-05-04 15:10:59 [JavaFX Application Thread] TRACE -  Wolf2 3 7  lifes: 38
-2026-05-04 15:10:59 [JavaFX Application Thread] INFO  - cycle 109
-2026-05-04 15:10:59 [JavaFX Application Thread] TRACE -  Hare8 13 1  lifes: 32
-2026-05-04 15:10:59 [JavaFX Application Thread] TRACE -  Wolf2 4 6  lifes: 37
-2026-05-04 15:10:59 [JavaFX Application Thread] INFO  - cycle 110
-2026-05-04 15:10:59 [JavaFX Application Thread] TRACE -  Hare8 13 2  lifes: 31
-2026-05-04 15:10:59 [JavaFX Application Thread] TRACE -  Wolf2 5 5  lifes: 36
-2026-05-04 15:10:59 [JavaFX Application Thread] INFO  - object was created: 🌿 9 2 count 1  maxCount 3
-2026-05-04 15:10:59 [JavaFX Application Thread] INFO  - cycle 111
-2026-05-04 15:10:59 [JavaFX Application Thread] TRACE -  Hare8 12 2  lifes: 30
-2026-05-04 15:10:59 [JavaFX Application Thread] TRACE -  Wolf2 6 4  lifes: 35
-2026-05-04 15:10:59 [JavaFX Application Thread] INFO  - object was created: 🌿 14 5 count 2  maxCount 3
-2026-05-04 15:10:59 [JavaFX Application Thread] INFO  - cycle 112
-2026-05-04 15:10:59 [JavaFX Application Thread] TRACE -  Hare8 13 3  lifes: 29
-2026-05-04 15:10:59 [JavaFX Application Thread] TRACE -  Wolf2 7 3  lifes: 34
-2026-05-04 15:10:59 [JavaFX Application Thread] INFO  - cycle 113
+2026-05-04 18:02:03 [main] INFO  - object was created: ⦿ 14 7 count 0  maxCount 2
+2026-05-04 18:02:03 [main] INFO  - object was created: 🌳 3 4 count 0  maxCount 2
+2026-05-04 18:02:03 [main] INFO  - object was created: 🙎‍♂️ 1 4 count 0  maxCount 2
+2026-05-04 18:02:03 [main] INFO  - object was created: 👮‍♂️ 12 1 count 0  maxCount 1
+2026-05-04 18:02:03 [main] INFO  - object was created: 🚬 2 3 count 0  maxCount 3
+2026-05-04 18:02:03 [main] INFO  - cycle 1
+2026-05-04 18:02:03 [main] TRACE - eating  2 3
+2026-05-04 18:02:03 [main] TRACE -  Hare1 2 3  lifes: 34
+2026-05-04 18:02:03 [main] TRACE -  Wolf1 11 2  lifes: 49
+2026-05-04 18:02:03 [main] INFO  - object was created: ⦿ 13 9 count 1  maxCount 2
+2026-05-04 18:02:03 [main] INFO  - object was created: 🌳 10 5 count 1  maxCount 2
+2026-05-04 18:02:03 [main] INFO  - object was created: 🙎‍♂️ 1 2 count 1  maxCount 2
+2026-05-04 18:02:03 [main] INFO  - object was created: 🚬 10 6 count 1  maxCount 3
+2026-05-04 18:02:03 [main] INFO  - cycle 2
+2026-05-04 18:02:04 [main] TRACE -  Hare1 3 3  lifes: 33
+2026-05-04 18:02:04 [main] TRACE -  Hare2 2 3  lifes: 29
+2026-05-04 18:02:04 [main] TRACE -  Wolf1 10 3  lifes: 48
+2026-05-04 18:02:04 [main] INFO  - object was created: 🚬 6 8 count 1  maxCount 3
+2026-05-04 18:02:04 [main] INFO  - cycle 3
+2026-05-04 18:02:04 [main] TRACE -  Hare1 4 4  lifes: 32
+2026-05-04 18:02:04 [main] TRACE -  Hare2 2 4  lifes: 28
+2026-05-04 18:02:04 [main] TRACE -  Wolf1 9 4  lifes: 47
+2026-05-04 18:02:04 [main] INFO  - object was created: 🚬 4 5 count 2  maxCount 3
+2026-05-04 18:02:04 [main] INFO  - cycle 4
+2026-05-04 18:02:05 [main] TRACE - eating  4 5
+2026-05-04 18:02:05 [main] TRACE -  Hare1 4 5  lifes: 36
+2026-05-04 18:02:05 [main] TRACE -  Hare2 3 5  lifes: 27
+2026-05-04 18:02:05 [main] TRACE -  Wolf1 8 5  lifes: 46
+2026-05-04 18:02:05 [main] INFO  - cycle 5
+2026-05-04 18:02:05 [main] TRACE -  Hare1 5 6  lifes: 35
+2026-05-04 18:02:05 [main] TRACE -  Hare2 4 6  lifes: 26
+2026-05-04 18:02:05 [main] TRACE -  Wolf1 7 6  lifes: 45
+2026-05-04 18:02:05 [main] INFO  - cycle 6
+2026-05-04 18:02:06 [main] TRACE -  Hare1 4 5  lifes: 34
+2026-05-04 18:02:06 [main] TRACE -  Hare2 5 7  lifes: 25
+2026-05-04 18:02:06 [main] TRACE -  Wolf1 6 7  lifes: 44
+2026-05-04 18:02:06 [main] INFO  - cycle 7
+2026-05-04 18:02:06 [main] TRACE -  Hare1 4 4  lifes: 33
+2026-05-04 18:02:06 [main] TRACE -  Hare2 4 6  lifes: 24
+2026-05-04 18:02:06 [main] TRACE -  Wolf1 5 6  lifes: 43
+2026-05-04 18:02:06 [main] INFO  - cycle 8
+2026-05-04 18:02:07 [main] TRACE -  Hare1 3 3  lifes: 32
+2026-05-04 18:02:07 [main] TRACE -  Hare2 3 5  lifes: 23
+2026-05-04 18:02:07 [main] TRACE -  Wolf1 4 5  lifes: 42
+2026-05-04 18:02:07 [main] INFO  - cycle 9
+2026-05-04 18:02:07 [main] TRACE -  Hare1 2 2  lifes: 31
+2026-05-04 18:02:07 [main] TRACE -  Hare2 2 4  lifes: 22
+2026-05-04 18:02:07 [main] TRACE -  Wolf1 3 5  lifes: 41
+2026-05-04 18:02:07 [main] INFO  - cycle 10
+2026-05-04 18:02:08 [main] TRACE -  Hare1 3 3  lifes: 30
+2026-05-04 18:02:08 [main] TRACE -  Hare2 1 3  lifes: 21
+2026-05-04 18:02:08 [main] TRACE -  Wolf1 2 4  lifes: 40
+2026-05-04 18:02:08 [main] INFO  - cycle 11
+2026-05-04 18:02:08 [main] TRACE -  Hare1 2 2  lifes: 29
+2026-05-04 18:02:08 [main] TRACE -  Hare2 0 2  lifes: 20
+2026-05-04 18:02:08 [main] TRACE -  Wolf1 2 3  lifes: 39
+2026-05-04 18:02:08 [main] INFO  - cycle 12
+2026-05-04 18:02:09 [main] TRACE -  Hare1 1 1  lifes: 28
+2026-05-04 18:02:09 [main] TRACE -  Hare2 0 1  lifes: 19
+2026-05-04 18:02:09 [main] TRACE -  Wolf1 1 2  lifes: 38
+2026-05-04 18:02:09 [main] INFO  - cycle 13
+2026-05-04 18:02:09 [main] TRACE -  Hare1 0 0  lifes: 27
+2026-05-04 18:02:09 [main] TRACE -  Hare2 1 0  lifes: 18
+2026-05-04 18:02:09 [main] TRACE -  Wolf1 0 1  lifes: 37
+2026-05-04 18:02:09 [main] INFO  - cycle 14
+2026-05-04 18:02:10 [main] TRACE -  Hare1 1 0  lifes: 26
+2026-05-04 18:02:10 [main] TRACE -  Hare2 2 0  lifes: 17
+2026-05-04 18:02:10 [main] TRACE - eating  1 0
+2026-05-04 18:02:10 [main] TRACE -  Wolf1 1 0  lifes: 41
+2026-05-04 18:02:10 [main] INFO  - object was created: 🚬 7 2 count 2  maxCount 3
+2026-05-04 18:02:10 [main] INFO  - cycle 15
+2026-05-04 18:02:10 [main] TRACE -  Hare2 3 0  lifes: 16
+2026-05-04 18:02:10 [main] TRACE -  Wolf1 2 0  lifes: 40
+2026-05-04 18:02:10 [main] INFO  - cycle 16
+2026-05-04 18:02:11 [main] TRACE -  Hare2 4 0  lifes: 15
+2026-05-04 18:02:11 [main] TRACE -  Wolf1 3 0  lifes: 39
+2026-05-04 18:02:11 [main] INFO  - cycle 17
+2026-05-04 18:02:11 [main] TRACE -  Hare2 5 0  lifes: 14
+2026-05-04 18:02:11 [main] TRACE -  Wolf1 4 0  lifes: 38
+2026-05-04 18:02:11 [main] INFO  - cycle 18
+2026-05-04 18:02:12 [main] TRACE -  Hare2 6 0  lifes: 13
+2026-05-04 18:02:12 [main] TRACE -  Wolf1 5 0  lifes: 37
+2026-05-04 18:02:12 [main] INFO  - cycle 19
+2026-05-04 18:02:12 [main] TRACE -  Hare2 7 0  lifes: 12
+2026-05-04 18:02:12 [main] TRACE -  Wolf1 6 0  lifes: 36
+2026-05-04 18:02:12 [main] INFO  - cycle 20
+2026-05-04 18:02:13 [main] TRACE -  Hare2 8 0  lifes: 11
+2026-05-04 18:02:13 [main] TRACE -  Wolf1 7 0  lifes: 35
+2026-05-04 18:02:13 [main] INFO  - cycle 21
+2026-05-04 18:02:13 [main] TRACE -  Hare2 9 0  lifes: 10
+2026-05-04 18:02:13 [main] TRACE -  Wolf1 8 0  lifes: 34
+2026-05-04 18:02:13 [main] INFO  - cycle 22
+2026-05-04 18:02:14 [main] TRACE -  Hare2 10 0  lifes: 9
+2026-05-04 18:02:14 [main] TRACE -  Wolf1 9 0  lifes: 33
+2026-05-04 18:02:14 [main] INFO  - object was created: 🙎‍♂️ 5 1 count 1  maxCount 2
+2026-05-04 18:02:14 [main] INFO  - cycle 23
+2026-05-04 18:02:14 [main] TRACE -  Hare2 11 0  lifes: 8
+2026-05-04 18:02:14 [main] TRACE -  Hare3 6 2  lifes: 29
+2026-05-04 18:02:14 [main] TRACE -  Wolf1 10 0  lifes: 32
+2026-05-04 18:02:14 [main] INFO  - cycle 24
+2026-05-04 18:02:15 [main] TRACE -  Hare2 12 0  lifes: 7
+2026-05-04 18:02:15 [main] TRACE - eating  7 2
+2026-05-04 18:02:15 [main] TRACE -  Hare3 7 2  lifes: 33
+2026-05-04 18:02:15 [main] TRACE -  Wolf1 11 0  lifes: 31
+2026-05-04 18:02:15 [main] INFO  - cycle 25
+2026-05-04 18:02:15 [main] TRACE -  Hare2 13 0  lifes: 6
+2026-05-04 18:02:15 [main] TRACE -  Hare3 8 3  lifes: 32
+2026-05-04 18:02:15 [main] TRACE -  Wolf1 12 0  lifes: 30
+2026-05-04 18:02:15 [main] INFO  - cycle 26
+2026-05-04 18:02:16 [main] TRACE -  Hare2 14 0  lifes: 5
+2026-05-04 18:02:16 [main] TRACE -  Hare3 9 4  lifes: 31
+2026-05-04 18:02:16 [main] TRACE -  Wolf1 13 0  lifes: 29
+2026-05-04 18:02:16 [main] INFO  - cycle 27
+2026-05-04 18:02:16 [main] TRACE -  Hare2 13 1  lifes: 4
+2026-05-04 18:02:16 [main] TRACE -  Hare3 9 5  lifes: 30
+2026-05-04 18:02:16 [main] TRACE - eating  13 1
+2026-05-04 18:02:16 [main] TRACE -  Wolf1 13 1  lifes: 33
+2026-05-04 18:02:16 [main] INFO  - cycle 28
+2026-05-04 18:02:17 [main] TRACE - eating  10 6
+2026-05-04 18:02:17 [main] TRACE -  Hare3 10 6  lifes: 34
+2026-05-04 18:02:17 [main] TRACE -  Wolf1 12 2  lifes: 32
+2026-05-04 18:02:17 [main] INFO  - cycle 29
+2026-05-04 18:02:17 [main] TRACE -  Hare3 9 7  lifes: 33
+2026-05-04 18:02:17 [main] TRACE -  Wolf1 11 3  lifes: 31
+2026-05-04 18:02:17 [main] INFO  - cycle 30
+2026-05-04 18:02:18 [main] TRACE -  Hare3 8 8  lifes: 32
+2026-05-04 18:02:18 [main] TRACE -  Wolf1 10 4  lifes: 30
+2026-05-04 18:02:18 [main] INFO  - cycle 31
+2026-05-04 18:02:18 [main] TRACE -  Hare3 7 8  lifes: 31
+2026-05-04 18:02:18 [main] TRACE -  Wolf1 9 5  lifes: 29
+2026-05-04 18:02:18 [main] INFO  - cycle 32
+2026-05-04 18:02:19 [main] TRACE - eating  6 8
+2026-05-04 18:02:19 [main] TRACE -  Hare3 6 8  lifes: 35
+2026-05-04 18:02:19 [main] TRACE -  Wolf1 8 6  lifes: 28
+2026-05-04 18:02:19 [main] INFO  - cycle 33
+2026-05-04 18:02:19 [main] TRACE -  Hare3 5 7  lifes: 34
+2026-05-04 18:02:19 [main] TRACE -  Wolf1 7 7  lifes: 27
+2026-05-04 18:02:19 [main] INFO  - cycle 34
+2026-05-04 18:02:20 [main] TRACE -  Hare3 4 6  lifes: 33
+2026-05-04 18:02:20 [main] TRACE -  Wolf1 6 6  lifes: 26
+2026-05-04 18:02:20 [main] INFO  - object was created: 🚬 8 0 count 0  maxCount 3
+2026-05-04 18:02:20 [main] INFO  - cycle 35
+2026-05-04 18:02:20 [main] TRACE -  Hare3 3 5  lifes: 32
+2026-05-04 18:02:20 [main] TRACE -  Wolf1 5 5  lifes: 25
+2026-05-04 18:02:20 [main] INFO  - object was created: 🙎‍♂️ 12 3 count 1  maxCount 2
+2026-05-04 18:02:20 [main] INFO  - object was created: 🚬 10 6 count 1  maxCount 3
+2026-05-04 18:02:20 [main] INFO  - cycle 36
+2026-05-04 18:02:21 [main] TRACE -  Hare3 2 4  lifes: 31
+2026-05-04 18:02:21 [main] TRACE -  Hare4 11 4  lifes: 29
+2026-05-04 18:02:21 [main] TRACE -  Wolf1 4 4  lifes: 24
+2026-05-04 18:02:21 [main] INFO  - object was created: 🚬 13 0 count 2  maxCount 3
+2026-05-04 18:02:21 [main] INFO  - cycle 37
+2026-05-04 18:02:21 [main] TRACE -  Hare3 1 3  lifes: 30
+2026-05-04 18:02:21 [main] TRACE -  Hare4 11 5  lifes: 28
+2026-05-04 18:02:21 [main] TRACE -  Wolf1 3 3  lifes: 23
+2026-05-04 18:02:21 [main] INFO  - cycle 38
+2026-05-04 18:02:22 [main] TRACE -  Hare3 0 2  lifes: 29
+2026-05-04 18:02:22 [main] TRACE - eating  10 6
+2026-05-04 18:02:22 [main] TRACE -  Hare4 10 6  lifes: 32
+2026-05-04 18:02:22 [main] TRACE -  Wolf1 2 2  lifes: 22
+2026-05-04 18:02:22 [main] INFO  - cycle 39

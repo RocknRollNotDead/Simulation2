@@ -1,6 +1,6 @@
 package simulation.Entity;
 
-public abstract class Predator extends Animals{
+public abstract class Predator extends Animal {
 
 
     public Predator(int x, int y) {

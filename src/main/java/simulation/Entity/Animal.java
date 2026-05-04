@@ -4,16 +4,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import simulation.backend.Position;
 import simulation.backend.Simulation;
-import simulation.util.Randomizer;
+import simulation.other.Randomizer;
 
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class Animals extends Entity{
+public abstract class Animal extends Entity{
 
-    private static final Logger log = LoggerFactory.getLogger(Animals.class);
+    private static final Logger log = LoggerFactory.getLogger(Animal.class);
     private static final Randomizer random = new Randomizer();
     private static final int COUNT_LIFES_FROM_EAT = 5;
 
@@ -22,7 +22,7 @@ public abstract class Animals extends Entity{
     private int lifes = getCountLifesFirstTime();
     private boolean isDead;
 
-    public Animals(int x, int y) {
+    public Animal(int x, int y) {
         super(x, y);
 
     }
@@ -49,7 +49,6 @@ public abstract class Animals extends Entity{
 
         if (lifes <= 0){
             simulation.addInQueueDel(this);
-            simulation.addDeathEvent(this);
             isDead = true;
             log.info(" " + this.getClass().getSimpleName() + getId() + " DEAD!X!X! ");
         }
@@ -147,7 +146,6 @@ public abstract class Animals extends Entity{
 
     private void eating(Simulation simulation, Entity entity){
         simulation.addInSetForEating(entity);
-        simulation.addEatingEvent(this, entity);
         log.trace("eating  " + entity.getPosition().x() + " " + entity.getPosition().y());
         if (lifes < getMaxCountLifes()){
             lifes = lifes + COUNT_LIFES_FROM_EAT;

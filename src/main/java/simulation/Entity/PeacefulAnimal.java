@@ -1,6 +1,6 @@
 package simulation.Entity;
 
-public abstract class PeacefulAnimal extends Animals{
+public abstract class PeacefulAnimal extends Animal {
 
     public PeacefulAnimal(int x, int y) {
         super(x, y);

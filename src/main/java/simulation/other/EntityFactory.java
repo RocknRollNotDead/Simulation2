@@ -1,4 +1,4 @@
-package simulation.util;
+package simulation.other;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,20 +7,10 @@ import simulation.backend.Position;
 
 import java.util.Map;
 
-public class Creator {
-    private static final Logger log = LoggerFactory.getLogger(Creator.class);
-    private final EntityCounter counter;
-    private final int width;
-    private final int heigh;
+public record EntityFactory(EntityCounter counter, int width, int heigh) {
+    private static final Logger log = LoggerFactory.getLogger(EntityFactory.class);
 
-
-    public Creator(EntityCounter counter, int width, int heigh){
-        this.counter = counter;
-        this.width = width;
-        this.heigh = heigh;
-    }
-
-    public Entity execute(Class<? extends Entity> clazz, Map<Position, Entity> objects){
+    public Entity execute(Class<? extends Entity> clazz, Map<Position, Entity> objects) {
 
 
         Entity entity = null;
@@ -28,17 +18,17 @@ public class Creator {
         int x;
         int y;
         int countAttempts = 0;
-        do{
+        do {
             x = random.get(width);
             y = random.get(heigh);
 
-            if(counter.getCount(clazz) < counter.getMaxCount(clazz) && (objects.get(new Position(x, y)) == null)){
+            if (counter.getCount(clazz) < counter.getMaxCount(clazz) && (objects.get(new Position(x, y)) == null)) {
                 try {
                     entity = clazz.getDeclaredConstructor(int.class, int.class).newInstance(x, y);
                     log.info("object was created: "/* + clazz.getSimpleName()*/ + entity.getSymbol() + " " +
                             entity.getPosition().x() + " " + entity.getPosition().y() + " count "
                             + counter.getCount(clazz) + "  maxCount " + counter.getMaxCount(clazz));
-                } catch (Exception e){
+                } catch (Exception e) {
                     log.debug("object not was created: " + clazz.getSimpleName());
                 }
 

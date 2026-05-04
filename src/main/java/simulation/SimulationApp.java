@@ -23,7 +23,7 @@ import javafx.util.Duration; // Класс для задания длитель�
 import simulation.Entity.*;
 import simulation.backend.Position; // Класс для хранения координат (x, y)
 import simulation.backend.Simulation; // Основной класс симуляции
-import simulation.util.Config;
+import simulation.other.Config;
 
 import java.util.HashMap; // Класс для хранения пар ключ-значение
 import java.util.Iterator; // Интерфейс для перебора элементов коллекции

@@ -1,4 +1,4 @@
-package simulation.util;
+package simulation.other;
 
 import simulation.backend.Position;
 
@@ -14,22 +14,6 @@ public class Randomizer {
 
     public int get(int max){
         return random.nextInt(max);
-    }
-
-    public Position getMove(){
-
-        int znakX = random.nextInt(2);
-        int znakY = random.nextInt(2);
-        int randomX = random.nextInt(2);
-        int randomY = random.nextInt(2);
-
-        if (znakX==0){
-            randomX = randomX*(-1);
-        }
-        if (znakY==0){
-            randomY = randomY*(-1);
-        }
-        return new Position(randomX, randomY);
     }
 
     public Position getMove(Set<Position> setPos){
