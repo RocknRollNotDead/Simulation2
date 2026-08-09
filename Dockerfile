@@ -20,7 +20,7 @@ COPY --from=build /app/target/*.jar app.jar
 COPY --from=build /app/.env .env
 
 # Открываем порт
-EXPOSE 8080
+EXPOSE 8085
 
 # Запускаем приложение
 ENTRYPOINT ["java", "-jar", "app.jar"]
